@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lifemaxxing</title>
+<meta name="theme-color" content="#0B1220">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lifemaxxing">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --bg:#0B1220;--bg-raised:#121B2E;--bg-input:#0E1626;--line:#1F2A40;--line-bright:#2C3A56;
+  --text:#EDEAE1;--text-dim:#8C93A6;--text-faint:#5B6478;
+  --accent:#D9763B;--accent-dim:#8A4E2A;--green:#4ADE80;--green-dim:#1F4D34;
+  --amber:#F4B740;--red:#E2574C;--blue:#5B9DE8;--purple:#A78BFA;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh;
+  padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+::selection{background:var(--accent-dim);color:#fff}
+.wrap{max-width:1200px;margin:0 auto;padding:22px 18px 100px}
+
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;
+  flex-wrap:wrap;gap:14px;border-bottom:1px solid var(--line);padding-bottom:16px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:5px}
+.header-left h1{font-family:'Space Grotesk',sans-serif;font-size:27px;font-weight:600;letter-spacing:-.01em}
+.header-right{text-align:right}
+.hdate{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim)}
+.hstreak{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--text-dim);margin-top:3px}
+.hstreak b{color:var(--accent);font-weight:600}
+.data-controls{display:flex;gap:7px;margin-top:7px;justify-content:flex-end;flex-wrap:wrap}
+.data-controls button{background:var(--bg-input);border:1px solid var(--line-bright);color:var(--text-dim);
+  font-size:11px;font-weight:500;padding:5px 9px;border-radius:6px;cursor:pointer;
+  font-family:'Inter',sans-serif;display:flex;align-items:center;gap:4px}
+.data-controls button:hover{border-color:var(--accent);color:var(--text)}
+.data-controls button.install-btn{border-color:var(--green);color:var(--green)}
+
+/* BACKUP BANNER */
+.backup-banner{background:rgba(244,183,64,.07);border:1px solid var(--amber);border-radius:10px;
+  padding:10px 15px;margin-bottom:16px;display:flex;justify-content:space-between;
+  align-items:center;gap:10px;flex-wrap:wrap}
+.backup-banner .bb-text{font-size:13px;color:var(--amber);display:flex;align-items:center;gap:7px}
+.backup-banner button{background:none;border:1px solid var(--amber);color:var(--amber);
+  font-size:12px;font-weight:500;padding:5px 11px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif}
+.backup-banner button:hover{background:rgba(244,183,64,.12)}
+
+/* BRIEFING */
+.briefing{background:linear-gradient(180deg,rgba(217,118,59,.08),rgba(217,118,59,.02));
+  border:1px solid var(--accent-dim);border-radius:12px;padding:14px 17px;margin-bottom:20px;
+  display:flex;gap:13px;align-items:flex-start}
+.briefing .b-icon{width:32px;height:32px;border-radius:50%;background:var(--accent);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#1a0d04;font-size:16px}
+.briefing .b-body{flex:1}
+.briefing .b-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;
+  color:var(--accent);text-transform:uppercase;margin-bottom:3px}
+.briefing .b-text{font-size:13.5px;line-height:1.6;color:var(--text)}
+.briefing .b-text b{color:var(--accent);font-weight:600}
+
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+.stat-pill{background:var(--bg-raised);border:1px solid var(--line);border-radius:10px;padding:13px 15px;display:flex;flex-direction:column;gap:3px}
+.stat-pill .sp-label{font-size:10px;color:var(--text-faint);text-transform:uppercase;letter-spacing:.06em;font-weight:500}
+.stat-pill .sp-value{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;line-height:1}
+.stat-pill .sp-sub{font-size:11px;color:var(--text-dim)}
+
+/* TOP NAV */
+.top-nav{display:flex;gap:3px;margin-bottom:22px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.top-nav::-webkit-scrollbar{display:none}
+.domain-tab{background:none;border:none;color:var(--text-dim);font-family:'Inter',sans-serif;
+  font-size:13px;font-weight:500;padding:9px 13px;cursor:pointer;border-bottom:2px solid transparent;
+  white-space:nowrap;display:flex;align-items:center;gap:6px}
+.domain-tab:hover{color:var(--text)}
+.domain-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.domain-tab.special-tab.active{color:var(--green);border-bottom-color:var(--green)}
+.domain-tab.home-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* LAYOUT */
+.domain-grid{display:grid;grid-template-columns:320px 1fr;gap:20px}
+.full-width{grid-column:1/-1}
+@media(max-width:800px){
+  .domain-grid{grid-template-columns:1fr}
+  .momentum{grid-template-columns:85px 1fr}
+}
+
+/* PANELS */
+.panel{background:var(--bg-raised);border:1px solid var(--line);border-radius:12px;padding:18px}
+.panel+.panel{margin-top:18px}
+.panel h2{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;margin-bottom:14px;
+  display:flex;align-items:center;gap:7px}
+.panel h2 i{color:var(--accent);font-size:16px}
+.section-title{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;margin-bottom:16px;
+  display:flex;justify-content:space-between;align-items:center}
+
+/* FORM ELEMENTS */
+label{display:block;font-size:12px;color:var(--text-dim);margin-bottom:4px;margin-top:12px;font-weight:500}
+label:first-of-type{margin-top:0}
+input,select,textarea{width:100%;background:var(--bg-input);border:1px solid var(--line-bright);
+  color:var(--text);font-family:'Inter',sans-serif;font-size:13.5px;padding:8px 10px;border-radius:7px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:56px;font-family:'Inter',sans-serif}
+input::placeholder,textarea::placeholder{color:var(--text-faint)}
+input[type="file"]{padding:6px;font-size:12px}
+.field-row-2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px}
+.field-with-mic{display:flex;gap:5px}
+.field-with-mic input,.field-with-mic textarea{flex:1}
+.mic-btn{background:var(--bg-input);border:1px solid var(--line-bright);color:var(--text-dim);
+  width:34px;height:34px;border-radius:7px;cursor:pointer;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:14px}
+.mic-btn:hover{border-color:var(--accent);color:var(--accent)}
+.mic-btn.listening{background:var(--red);border-color:var(--red);color:#fff;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* BUTTONS */
+button.submit{width:100%;margin-top:16px;background:var(--accent);color:#1a0d04;border:none;
+  font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;padding:10px;border-radius:7px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+button.submit:hover{background:#e6854a}
+button.submit:active{transform:scale(.99)}
+button.submit.secondary{background:var(--bg-input);color:var(--text);border:1px solid var(--line-bright);margin-top:10px}
+button.submit.secondary:hover{border-color:var(--accent)}
+button.submit.voice-all{background:var(--bg-input);color:var(--text);border:1px solid var(--line-bright);margin-bottom:12px;margin-top:0}
+button.submit.voice-all.listening{border-color:var(--red);color:var(--red)}
+button.submit.green-btn{background:var(--green-dim);color:var(--green);border:1px solid var(--green)}
+button.submit.green-btn:hover{background:#173b29}
+.icon-btn{background:none;border:none;cursor:pointer;color:var(--text-faint);padding:4px;font-size:16px}
+.icon-btn:hover{color:var(--accent)}
+.icon-btn.danger:hover{color:var(--red)}
+
+/* LOG */
+.log-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.log-header h2{margin-bottom:0}
+.log-count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint)}
+.log-entry{border-bottom:1px solid var(--line);padding:11px 0}
+.log-entry:last-child{border-bottom:none}
+.log-entry-top{display:flex;justify-content:space-between;align-items:baseline;gap:9px}
+.log-stats{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--text);display:flex;gap:12px;flex-wrap:wrap}
+.log-stats span b{color:var(--accent);font-weight:500}
+.log-date{font-size:11px;color:var(--text-faint);white-space:nowrap;font-family:'JetBrains Mono',monospace}
+.log-note{font-size:13px;color:var(--text-dim);margin-top:5px;line-height:1.5}
+.log-empty{text-align:center;padding:44px 18px;color:var(--text-faint);font-size:13px}
+.log-empty i{font-size:24px;display:block;margin-bottom:9px;color:var(--line-bright)}
+.log-photo{margin-top:7px;max-width:130px;border-radius:7px;border:1px solid var(--line);display:block}
+
+/* TOAST */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--bg-raised);border:1px solid var(--accent);color:var(--text);
+  padding:9px 16px;border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;
+  opacity:0;transition:all .25s ease;pointer-events:none;z-index:200;
+  display:flex;align-items:center;gap:7px;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast i{color:var(--green);flex-shrink:0}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:150;
+  display:flex;align-items:center;justify-content:center;padding:18px}
+.modal{background:var(--bg-raised);border:1px solid var(--line-bright);border-radius:12px;
+  padding:20px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto}
+.modal h3{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin-bottom:14px}
+.modal-actions{display:flex;gap:7px;margin-top:16px}
+.modal-actions button{flex:1;padding:9px;border-radius:7px;cursor:pointer;font-family:'Space Grotesk',sans-serif;
+  font-weight:600;font-size:13px;border:1px solid var(--line-bright);background:var(--bg-input);color:var(--text)}
+.modal-actions button.primary{background:var(--green-dim);border-color:var(--green);color:var(--green)}
+.modal-actions button.primary:hover{background:#173b29}
+.modal-actions button:hover{border-color:var(--text-dim)}
+
+/* GOALS */
+.goals-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}
+@media(max-width:700px){.goals-grid{grid-template-columns:1fr}}
+.goal-card{background:var(--bg-raised);border:1px solid var(--line);border-radius:12px;padding:16px}
+.goal-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600}
+.goal-badge{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--text-faint);
+  font-family:'JetBrains Mono',monospace;margin-top:2px}
+.goal-values{display:flex;align-items:baseline;gap:6px;margin:9px 0 7px;font-family:'JetBrains Mono',monospace}
+.goal-current{font-size:21px;font-weight:500;color:var(--green)}
+.goal-target-lbl{font-size:12px;color:var(--text-dim)}
+.progress-track{height:9px;background:var(--bg-input);border-radius:5px;overflow:hidden;
+  position:relative;border:1px solid var(--line)}
+.progress-fill{height:100%;background:linear-gradient(90deg,#2f9e5c,var(--green));border-radius:5px;transition:width .4s ease}
+.milestone-tick{position:absolute;top:-2px;width:2px;height:14px;background:var(--amber)}
+.goal-meta{display:flex;justify-content:space-between;margin-top:7px;font-size:11px;color:var(--text-faint)}
+.goal-meta .pct{color:var(--green);font-weight:500}
+.goal-actions{display:flex;gap:7px;margin-top:12px}
+.goal-actions button{flex:1;background:var(--bg-input);border:1px solid var(--line-bright);
+  color:var(--text-dim);font-size:11.5px;padding:6px;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif}
+.goal-actions button:hover{border-color:var(--accent);color:var(--text)}
+.goal-actions button.del:hover{border-color:var(--red);color:var(--red)}
+.goal-empty{grid-column:1/-1;text-align:center;padding:44px 18px;color:var(--text-faint);font-size:13px}
+
+/* HOME DASHBOARD */
+.home-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.home-card{background:var(--bg-raised);border:1px solid var(--line);border-radius:12px;padding:16px}
+.home-card h3{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;
+  color:var(--text-dim);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em}
+.stat-big{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;line-height:1}
+.stat-label{font-size:12px;color:var(--text-dim);margin-top:4px}
+.home-metric-row{display:flex;justify-content:space-between;align-items:center;
+  padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.home-metric-row:last-child{border-bottom:none}
+.home-metric-row .hmr-val{font-family:'JetBrains Mono',monospace;color:var(--accent)}
+
+/* TASKS */
+.task-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.task-item:last-child{border-bottom:none}
+.task-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--line-bright);
+  background:none;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  color:transparent;font-size:11px;transition:all .15s}
+.task-check.done{background:var(--green);border-color:var(--green);color:#0B1220}
+.task-text{flex:1;font-size:13.5px}
+.task-text.done{text-decoration:line-through;color:var(--text-faint)}
+.task-meta{font-size:11px;color:var(--text-faint);font-family:'JetBrains Mono',monospace}
+.task-add-row{display:flex;gap:8px;margin-top:12px}
+.task-add-row input{flex:1}
+.task-add-btn{background:var(--accent);border:none;color:#1a0d04;font-weight:600;font-size:13px;
+  padding:8px 14px;border-radius:7px;cursor:pointer;white-space:nowrap}
+.task-tab-row{display:flex;gap:0;margin-bottom:14px;border:1px solid var(--line-bright);border-radius:8px;overflow:hidden}
+.task-tab{flex:1;background:none;border:none;color:var(--text-dim);font-size:13px;font-weight:500;
+  padding:8px;cursor:pointer;font-family:'Inter',sans-serif}
+.task-tab.active{background:var(--accent);color:#1a0d04;font-weight:600}
+
+/* HABITS */
+.habit-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.habit-row:last-child{border-bottom:none}
+.habit-name{flex:1;font-size:13.5px}
+.habit-streak{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--amber);margin-right:4px}
+.habit-check-btn{width:34px;height:34px;border-radius:50%;border:2px solid var(--line-bright);
+  background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--text-faint);flex-shrink:0;transition:all .15s}
+.habit-check-btn.done{background:var(--green);border-color:var(--green);color:#0B1220}
+.heatmap-row{display:flex;gap:3px;margin-top:12px;flex-wrap:wrap}
+.heatmap-cell{width:12px;height:12px;border-radius:2px;background:var(--bg-input);
+  border:1px solid var(--line);flex-shrink:0;cursor:default}
+
+/* NET WORTH / FINANCE */
+.account-row{display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.account-row:last-child{border-bottom:none}
+.account-name{color:var(--text);font-weight:500}
+.account-val{font-family:'JetBrains Mono',monospace;color:var(--accent)}
+.nw-total{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--green);margin:12px 0 4px}
+.holdings-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:12px}
+.holdings-table th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--text-faint);padding:6px 8px;border-bottom:1px solid var(--line);font-weight:500}
+.holdings-table td{padding:8px 8px;border-bottom:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:12px}
+.holdings-table tr:last-child td{border-bottom:none}
+
+/* RECRUITING PIPELINE */
+.pipeline-stages{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;padding-bottom:4px}
+.pipeline-stage{background:var(--bg-input);border:1px solid var(--line-bright);border-radius:8px;
+  padding:10px 14px;min-width:130px;flex-shrink:0}
+.pipeline-stage .ps-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--text-faint);margin-bottom:6px;font-weight:500}
+.pipeline-stage .ps-count{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600}
+.pipeline-firm{background:var(--bg-input);border:1px solid var(--line);border-radius:8px;
+  padding:12px 14px;margin-bottom:8px}
+.pipeline-firm-top{display:flex;justify-content:space-between;align-items:center}
+.pipeline-firm-name{font-weight:600;font-size:14px}
+.stage-badge{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.05em}
+.stage-research{background:rgba(91,157,232,.15);color:var(--blue)}
+.stage-outreach{background:rgba(244,183,64,.15);color:var(--amber)}
+.stage-response{background:rgba(217,118,59,.15);color:var(--accent)}
+.stage-coffee{background:rgba(167,139,250,.15);color:var(--purple)}
+.stage-interview{background:rgba(74,222,128,.15);color:var(--green)}
+.stage-offer{background:rgba(74,222,128,.3);color:var(--green)}
+.pipeline-firm-meta{font-size:12px;color:var(--text-dim);margin-top:5px}
+
+/* EVA CAPITAL */
+.equity-row{display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+.equity-row:last-child{border-bottom:none}
+.equity-ticker{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;min-width:60px}
+.equity-name{flex:1;color:var(--text-dim);font-size:12px}
+.rating-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase}
+.rating-buy{background:rgba(74,222,128,.15);color:var(--green)}
+.rating-hold{background:rgba(244,183,64,.15);color:var(--amber)}
+.rating-sell{background:rgba(226,87,76,.15);color:var(--red)}
+.dcf-badge{font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text-faint);margin-left:8px}
+
+/* SCHOOL */
+.course-card{background:var(--bg-input);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.course-name{font-weight:600;font-size:14px;margin-bottom:6px}
+.assignment-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
+.assignment-row:last-child{border-bottom:none}
+.assignment-due{font-size:11px;color:var(--text-faint);font-family:'JetBrains Mono',monospace;margin-left:auto}
+.assignment-due.overdue{color:var(--red)}
+.assignment-due.soon{color:var(--amber)}
+
+/* BODY MAP */
+.body-map-legend{display:flex;gap:16px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.body-map-legend span{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-dim)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.body-map-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.body-figure-wrap{display:flex;flex-direction:column;align-items:center}
+.body-figure-label{font-size:11px;color:var(--text-faint);margin-top:5px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.06em}
+.muscle-status-list{margin-top:16px;border-top:1px solid var(--line)}
+.muscle-status-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.muscle-status-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.muscle-status-name{font-size:13.5px;font-weight:500;flex:1}
+.muscle-status-time{font-size:12px;color:var(--text-faint);font-family:'JetBrains Mono',monospace}
+
+/* WEEKLY REVIEW */
+.review-section{margin-bottom:16px}
+.review-section label{font-size:13px;color:var(--text-dim);font-weight:600;margin-bottom:6px;display:block}
+.review-history-item{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.review-history-date{font-size:11px;color:var(--text-faint);font-family:'JetBrains Mono',monospace;margin-bottom:6px}
+
+/* STATEMENT PARSER */
+.statement-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.cat-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+.cat-row:last-child{border-bottom:none}
+.cat-row .cat-amt{font-family:'JetBrains Mono',monospace;color:var(--text-dim)}
+
+/* PHOTO */
+.photo-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(85px,1fr));gap:7px;margin-top:12px}
+.photo-thumb{position:relative;border-radius:7px;overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-thumb .photo-date{position:absolute;bottom:0;left:0;right:0;background:rgba(11,18,32,.85);
+  font-size:9px;color:var(--text-dim);padding:3px 4px;text-align:center;font-family:'JetBrains Mono',monospace}
+
+/* CHARTS */
+.mini-chart{height:60px;display:flex;align-items:flex-end;gap:3px;margin-top:10px}
+.mini-bar{flex:1;border-radius:3px 3px 0 0;min-height:3px;background:var(--accent);opacity:.7;transition:height .3s}
+.mini-bar:hover{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <div class="header-left">
+    <div class="eyebrow">Personal operating system</div>
+    <h1>Lifemaxxing</h1>
+  </div>
+  <div class="header-right">
+    <div class="hdate" id="today-date"></div>
+    <div class="hstreak" id="overall-streak"></div>
+    <div class="data-controls">
+      <button id="install-btn" class="install-btn" style="display:none"><i class="ti ti-device-mobile"></i> Install</button>
+      <button id="export-btn"><i class="ti ti-download"></i> Export</button>
+      <button id="import-btn"><i class="ti ti-upload"></i> Import</button>
+    </div>
+    <input type="file" id="import-file-input" accept="application/json" style="display:none">
+  </div>
+</div>
+
+<div class="backup-banner" id="backup-banner" style="display:none">
+  <div class="bb-text"><i class="ti ti-alert-triangle"></i><span id="backup-banner-text"></span></div>
+  <button id="banner-export-btn">Back up now</button>
+</div>
+
+<div class="briefing">
+  <div class="b-icon"><i class="ti ti-bolt"></i></div>
+  <div class="b-body">
+    <div class="b-label">Briefing</div>
+    <div class="b-text" id="briefing-text">Loading...</div>
+  </div>
+</div>
+
+<div class="stats-bar" id="stats-bar"></div>
+<div class="top-nav" id="top-nav"></div>
+
+<div id="main-content"></div>
+
+</div><!-- end wrap -->
+
+<div id="modal-root"></div>
+<div class="toast" id="toast"><i class="ti ti-check"></i><span id="toast-text"></span></div>
+
+<script>
+/* ============================================================
+   COMMAND DECK v4 — Full life operating system
+   ============================================================ */
+
+/* ---------- CONSTANTS ---------- */
+const DOMAINS = {
+  finances:{label:'Finances',icon:'ti-currency-dollar',fields:[
+    {key:'balance',label:'Account balance ($)',type:'number',placeholder:'0.00'},
+    {key:'change',label:'Change since last check-in ($)',type:'number',placeholder:'can be negative'},
+    {key:'category',label:'Source',type:'select',options:['Job income','Business income','Investing','Spending review','Savings goal','Other']},
+    {key:'note',label:'Notes',type:'textarea',placeholder:'TFSA contribution, trade, expense review...',voice:true}
+  ],statKeys:['balance','change']},
+  gym:{label:'Gym',icon:'ti-barbell',fields:[
+    {key:'session',label:'Session type',type:'select',options:['Push','Pull','Legs','Upper','Lower','Chest & back','Shoulders & arms','Full body','Cardio','Rest day']},
+    {key:'lift',label:'Key lift / PR',type:'text',placeholder:'e.g. Bench 185x5',voice:true},
+    {key:'weight',label:'Bodyweight (lbs)',type:'number',placeholder:'140'},
+    {key:'note',label:'Notes',type:'textarea',placeholder:'Energy, soreness, notes...',voice:true}
+  ],statKeys:['session','weight']},
+  food:{label:'Food',icon:'ti-apple',fields:[
+    {key:'calories',label:'Calories (est.)',type:'number',placeholder:'2200'},
+    {key:'protein',label:'Protein (g)',type:'number',placeholder:'150'},
+    {key:'cleanliness',label:'How clean was today',type:'select',options:['Very clean','Mostly clean','Mixed','Off plan','Bad day']},
+    {key:'note',label:'What you ate',type:'textarea',placeholder:'Main meals, anything notable...',voice:true}
+  ],statKeys:['calories','protein']},
+  sleep:{label:'Sleep',icon:'ti-moon',fields:[
+    {key:'hours',label:'Hours slept',type:'number',placeholder:'7.5'},
+    {key:'quality',label:'Sleep quality',type:'select',options:['Excellent','Good','Average','Poor','Bad']},
+    {key:'wakeups',label:'Times woken up',type:'number',placeholder:'0'},
+    {key:'note',label:'Notes',type:'textarea',placeholder:'Bedtime, what affected it...',voice:true}
+  ],statKeys:['hours','quality']},
+  businesses:{label:'Business',icon:'ti-rocket',fields:[
+    {key:'metric',label:'Key metric moved',type:'text',placeholder:'e.g. DCF built, pitch finished',voice:true},
+    {key:'value',label:'Value / result',type:'text',placeholder:'e.g. 2 models done'},
+    {key:'note',label:'Notes',type:'textarea',placeholder:'EVA Capital progress, next steps...',voice:true}
+  ],statKeys:['metric','value']},
+  school:{label:'School',icon:'ti-school',fields:[
+    {key:'course',label:'Course',type:'text',placeholder:'e.g. COMM 172'},
+    {key:'task',label:'Task completed',type:'text',placeholder:'e.g. Assignment, reading',voice:true},
+    {key:'hours',label:'Hours studied',type:'number',placeholder:'2'},
+    {key:'note',label:'Notes',type:'textarea',placeholder:'Grade, deadline, progress...',voice:true}
+  ],statKeys:['course','hours']},
+  recruiting:{label:'Networking',icon:'ti-briefcase',fields:[
+    {key:'activity',label:'Activity',type:'select',options:['Resume work','Networking / outreach','Application','Interview prep','Internship work','Research / modeling','Other']},
+    {key:'target',label:'Target / contact',type:'text',placeholder:'e.g. Altas Partners, alumni name',voice:true},
+    {key:'count',label:'Count',type:'number',placeholder:'1'},
+    {key:'note',label:'Notes',type:'textarea',placeholder:'Outcome, follow-up needed...',voice:true}
+  ],statKeys:['activity','count']}
+};
+const DOMAIN_KEYS = Object.keys(DOMAINS);
+
+const MUSCLE_GROUPS = {
+  'Chest & back':['chest','back'],'Shoulders & arms':['shoulders','biceps','triceps'],
+  'Push':['chest','shoulders','triceps'],'Pull':['back','biceps'],
+  'Legs':['quads','hamstrings','calves'],'Upper':['chest','back','shoulders','biceps','triceps'],
+  'Lower':['quads','hamstrings','calves','core'],
+  'Full body':['chest','back','shoulders','biceps','triceps','quads','hamstrings','calves','core'],
+  'Cardio':['core'],'Rest day':[]
+};
+const MUSCLE_LIST = ['chest','back','shoulders','biceps','triceps','core','quads','hamstrings','calves'];
+const MUSCLE_LABELS = {chest:'Chest',back:'Back',shoulders:'Shoulders',biceps:'Biceps',triceps:'Triceps',core:'Core',quads:'Quads',hamstrings:'Hamstrings',calves:'Calves'};
+
+const EVA_EQUITIES_DEFAULT = ['META','HIMS','PGY','SOFI','ELF','AMD','RKLB','ZETA','AMZN','GOOG','NFLX','COIN','NVDA'];
+function getEVATickers(){
+  const stored=sGet('eva-tickers');
+  return stored?JSON.parse(stored):EVA_EQUITIES_DEFAULT;
+}
+function saveEVATickers(list){ sSet('eva-tickers',JSON.stringify(list)); }
+const PIPELINE_STAGES = ['Researching','Outreach sent','Response received','Coffee chat','Interview','Offer'];
+const STAGE_CLASSES = {
+  'Researching':'stage-research','Outreach sent':'stage-outreach','Response received':'stage-response',
+  'Coffee chat':'stage-coffee','Interview':'stage-interview','Offer':'stage-offer'
+};
+
+const SPEND_CATEGORIES = {
+  'Food & dining':['restaurant','starbucks','mcdonald','tim hortons','uber eats','doordash','cafe','coffee','grocery','food','pizza','sushi'],
+  'Transport':['uber','lyft','gas','petro','shell','esso','transit','presto','parking'],
+  'Subscriptions':['netflix','spotify','apple.com','subscription','prime','youtube premium','icloud'],
+  'Shopping':['amazon','shein','walmart','best buy','shopping','store'],
+  'Income':['payroll','deposit','e-transfer received','salary','paycheck','pay','interac e-transfer from'],
+  'Transfers & savings':['tfsa','fhsa','transfer to','wealthsimple','investment'],
+  'Other':[]
+};
+
+const DEFAULT_HABITS = [{id:'h0',name:'Gym',log:{}}];
+
+/* ---------- STATE ---------- */
+let activeView = 'home';
+let activeDomain = 'finances';
+let allEntries = {};
+let allGoals = [];
+let allTasks = {daily:[],weekly:[]};
+let allHabits = [];
+let allAccounts = [];
+let allHoldings = [];
+let allFirms = [];
+let allEquities = {};
+let allCourses = [];
+let allReviews = [];
+let lastBackup = null;
+let deferredInstallPrompt = null;
+let recognition = null;
+
+/* ---------- HELPERS ---------- */
+const $=id=>document.getElementById(id);
+function fmtDate(d){return new Date(d).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}
+function todayStr(){return new Date().toISOString().slice(0,10)}
+function showToast(msg,icon){
+  const t=$('toast'); $('toast-text').textContent=msg;
+  t.querySelector('i').className='ti '+(icon||'ti-check');
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2700);
+}
+function fmtNum(n,decimals=1){
+  const num=parseFloat(n); if(isNaN(num)) return n||'—';
+  return num.toLocaleString('en-US',{maximumFractionDigits:decimals});
+}
+function fmtMoney(n){
+  const num=parseFloat(n); if(isNaN(num)) return '—';
+  return '$'+num.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function daysUntil(dateStr){
+  if(!dateStr) return null;
+  const diff=new Date(dateStr).getTime()-Date.now();
+  return Math.ceil(diff/86400000);
+}
+function daysSince(dateStr){
+  if(!dateStr) return Infinity;
+  return Math.floor((Date.now()-new Date(dateStr).getTime())/86400000);
+}
+
+/* ---------- STORAGE ---------- */
+function sGet(key){try{const r=localStorage.getItem('cmddeck:'+key);return r===null?null:r}catch(e){return null}}
+function sSet(key,val){try{localStorage.setItem('cmddeck:'+key,val);return true}catch(e){return false}}
+
+function loadAll(){
+  DOMAIN_KEYS.forEach(k=>{const r=sGet('entries:'+k);allEntries[k]=r?JSON.parse(r):[]});
+  allGoals=JSON.parse(sGet('goals')||'[]');
+  allTasks=JSON.parse(sGet('tasks')||'{"daily":[],"weekly":[]}');
+  if(!allTasks.daily) allTasks={daily:[],weekly:[]};
+  allHabits=JSON.parse(sGet('habits')||'null')||DEFAULT_HABITS;
+  allAccounts=JSON.parse(sGet('accounts')||'[]');
+  allHoldings=JSON.parse(sGet('holdings')||'[]');
+  allFirms=JSON.parse(sGet('firms')||'[]');
+  allEquities=JSON.parse(sGet('equities')||'{}');
+  allCourses=JSON.parse(sGet('courses')||'[]');
+  allReviews=JSON.parse(sGet('reviews')||'[]');
+  lastBackup=sGet('lastBackup');
+  // init EVA equities if empty
+  if(Object.keys(allEquities).length===0){
+    getEVATickers().forEach(t=>{allEquities[t]={ticker:t,note:''}});
+    sSet('equities',JSON.stringify(allEquities));
+  }
+}
+function save(key,data){if(!sSet(key,JSON.stringify(data)))showToast('Save failed','ti-alert-triangle')}
+function saveEntries(domain){save('entries:'+domain,allEntries[domain])}
+function saveGoals(){save('goals',allGoals)}
+function saveTasks(){save('tasks',allTasks)}
+function saveHabits(){save('habits',allHabits)}
+function saveAccounts(){save('accounts',allAccounts)}
+function saveHoldings(){save('holdings',allHoldings)}
+function saveFirms(){save('firms',allFirms)}
+function saveEquities(){save('equities',allEquities)}
+function saveCourses(){save('courses',allCourses)}
+function saveReviews(){save('reviews',allReviews)}
+
+/* ---------- VOICE ---------- */
+function startVoice(fieldId,btn){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){showToast('Voice not supported in this browser','ti-microphone-off');return}
+  if(recognition){try{recognition.stop()}catch(e){}}
+  recognition=new SR(); recognition.continuous=false; recognition.lang='en-US';
+  btn.classList.add('listening');
+  recognition.onresult=e=>{
+    const t=e.results[0][0].transcript; const el=$(fieldId);
+    if(el) el.value=el.value?el.value+' '+t:t;
+  };
+  recognition.onend=()=>btn.classList.remove('listening');
+  recognition.onerror=()=>{btn.classList.remove('listening');showToast('Could not hear that','ti-microphone-off')};
+  recognition.start();
+}
+
+/* ---------- INSTALL ---------- */
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault(); deferredInstallPrompt=e; $('install-btn').style.display='flex';
+});
+$('install-btn').addEventListener('click',async()=>{
+  if(!deferredInstallPrompt){showToast('Use browser share menu → Add to Home Screen','ti-info-circle');return}
+  deferredInstallPrompt.prompt(); await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt=null; $('install-btn').style.display='none';
+});
+
+/* ---------- BACKUP ---------- */
+function exportBackup(){
+  const payload={exportedAt:new Date().toISOString(),entries:allEntries,goals:allGoals,
+    tasks:allTasks,habits:allHabits,accounts:allAccounts,holdings:allHoldings,
+    firms:allFirms,equities:allEquities,courses:allCourses,reviews:allReviews};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url;
+  a.download='command-deck-backup-'+todayStr()+'.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+  lastBackup=new Date().toISOString(); sSet('lastBackup',lastBackup);
+  showToast('Backup downloaded'); renderAll();
+}
+function triggerImport(){$('import-file-input').click()}
+async function handleImportFile(file){
+  if(!file) return;
+  try{
+    const data=JSON.parse(await file.text());
+    if(!data.entries&&!data.goals){showToast('Not a valid backup','ti-alert-triangle');return}
+    openModal(`<h3>Restore from backup</h3>
+      <p style="font-size:13px;color:var(--text-dim);line-height:1.6;">
+        Exported ${data.exportedAt?fmtDate(data.exportedAt):'unknown date'}.
+        This will <b style="color:var(--red)">replace</b> all current data.</p>
+      <div class="modal-actions"><button id="ic">Cancel</button><button class="primary" id="io">Restore</button></div>`);
+    $('ic').onclick=closeModal;
+    $('io').onclick=()=>{
+      allEntries=data.entries||{}; allGoals=data.goals||[];
+      allTasks=data.tasks||{daily:[],weekly:[]};
+      allHabits=data.habits||allHabits; allAccounts=data.accounts||[];
+      allHoldings=data.holdings||[]; allFirms=data.firms||[];
+      allEquities=data.equities||allEquities; allCourses=data.courses||[];
+      allReviews=data.reviews||[];
+      DOMAIN_KEYS.forEach(k=>saveEntries(k));
+      saveGoals();saveTasks();saveHabits();saveAccounts();saveHoldings();
+      saveFirms();saveEquities();saveCourses();saveReviews();
+      lastBackup=new Date().toISOString(); sSet('lastBackup',lastBackup);
+      closeModal(); showToast('Data restored'); renderAll();
+    };
+  }catch(e){showToast('Could not read file','ti-alert-triangle')}
+}
+function renderBackupBanner(){
+  const banner=$('backup-banner');
+  const days=daysSince(lastBackup);
+  const total=DOMAIN_KEYS.reduce((s,k)=>s+(allEntries[k]||[]).length,0)+allGoals.length;
+  if(total===0){banner.style.display='none';return}
+  if(lastBackup===null||days>=7){
+    banner.style.display='flex';
+    $('backup-banner-text').textContent=lastBackup===null
+      ?'No backup yet. Export a copy to keep your data safe.'
+      :`Last backup was ${days} day${days===1?'':'s'} ago.`;
+  } else banner.style.display='none';
+}
+
+/* ---------- HEADER / BRIEFING ---------- */
+function renderHeader(){
+  $('today-date').textContent=fmtDate(new Date());
+  const today=todayStr();
+  const checked=DOMAIN_KEYS.filter(k=>(allEntries[k]||[]).some(e=>e.date===today));
+  $('overall-streak').innerHTML=checked.length>0
+    ?`<b>${checked.length}/${DOMAIN_KEYS.length}</b> domains logged today`
+    :'No check-ins yet today';
+}
+
+function progressPct(g){
+  if(g.target===g.start) return g.current>=g.target?100:0;
+  return Math.max(0,Math.min(100,((g.current-g.start)/(g.target-g.start))*100));
+}
+
+function buildBriefing(){
+  const lines=[]; const today=todayStr();
+  const checked=DOMAIN_KEYS.filter(k=>(allEntries[k]||[]).some(e=>e.date===today));
+  const missed=DOMAIN_KEYS.filter(k=>!checked.includes(k));
+  // top goal
+  const closest=allGoals.filter(g=>progressPct(g)<100).sort((a,b)=>progressPct(b)-progressPct(a))[0];
+  if(closest) lines.push(`<b>${closest.title}</b> is at ${Math.round(progressPct(closest))}%, ${fmtNum(closest.target-closest.current)}${closest.unit||''} to go.`);
+  // sleep check
+  const sleepE=(allEntries.sleep||[]).slice(-3);
+  if(sleepE.length>=3){
+    const avg=sleepE.reduce((s,e)=>s+(parseFloat(e.hours)||0),0)/sleepE.length;
+    if(avg<7) lines.push(`Sleep is averaging ${avg.toFixed(1)}h over the last 3 nights. Worth protecting tonight.`);
+  }
+  // recruiting
+  const weekStart=new Date(); weekStart.setDate(weekStart.getDate()-7);
+  const outreachThisWeek=(allEntries.recruiting||[]).filter(e=>e.activity==='Networking / outreach'&&new Date(e.date)>=weekStart).length;
+  if(outreachThisWeek===0&&missed.includes('recruiting')) lines.push(`No recruiting outreach logged this week yet.`);
+  // domains
+  if(missed.length===DOMAIN_KEYS.length) lines.push(`Nothing logged today yet. One check-in keeps the streak alive.`);
+  else if(missed.length>0&&lines.length<2) lines.push(`Still open today: ${missed.map(m=>DOMAINS[m].label).join(', ')}.`);
+  else if(missed.length===0&&lines.length<2) lines.push(`All domains logged today. Clean sweep.`);
+  if(lines.length===0) lines.push(`No entries yet. Log your first check-in to get started.`);
+  return lines.slice(0,2).join(' ');
+}
+function renderBriefing(){$('briefing-text').innerHTML=buildBriefing()}
+
+/* ---------- STATS BAR ---------- */
+function renderStatsBar(){
+  const el=$('stats-bar'); if(!el) return;
+  const nw=allAccounts.reduce((s,a)=>s+(parseFloat(a.balance)||0),0);
+  const gymE=allEntries.gym||[];
+  const lastWeight=gymE.slice().reverse().find(e=>e.weight);
+  const foodE=allEntries.food||[];
+  const sleepE=allEntries.sleep||[];
+  const avgSleep=sleepE.length?sleepE.slice(-7).reduce((s,e)=>s+(parseFloat(e.hours)||0),0)/Math.min(7,sleepE.length):null;
+  const today=todayStr();
+  const habitsDone=allHabits.filter(h=>h.log[today]).length;
+  const tasksDone=allTasks.daily.filter(t=>t.done).length;
+  const stats=[
+    {label:'Net Worth',value:nw>0?fmtMoney(nw):'—',sub:allAccounts.length+' accounts',color:'var(--green)'},
+    {label:'Finances',value:(allEntries.finances||[]).length,sub:'total entries',color:''},
+    {label:'Gym sessions',value:gymE.length,sub:lastWeight?lastWeight.weight+' lbs':'no weight logged',color:''},
+    {label:'Food logged',value:foodE.length,sub:'entries',color:''},
+    {label:'Avg sleep',value:avgSleep?avgSleep.toFixed(1)+'h':'—',sub:'last 7 nights',color:sleepColor(avgSleep)},
+    {label:'Habits today',value:habitsDone+'/'+allHabits.length,sub:'completed',color:habitsDone===allHabits.length?'var(--green)':''},
+    {label:'Tasks today',value:tasksDone+'/'+allTasks.daily.length,sub:'done',color:''},
+    {label:'Networking',value:allFirms.length,sub:'firms tracked',color:''},
+  ];
+  el.innerHTML=stats.map(s=>`
+    <div class="stat-pill">
+      <div class="sp-label">${s.label}</div>
+      <div class="sp-value" ${s.color?`style="color:${s.color}"`:''} >${s.value}</div>
+      <div class="sp-sub">${s.sub}</div>
+    </div>`).join('');
+}
+
+/* ---------- NAV ---------- */
+const VIEWS=[
+  {id:'home',label:'Home',icon:'ti-home',cls:'home-tab'},
+  {id:'goals',label:'Goals',icon:'ti-target',cls:'special-tab'},
+  {id:'tasks',label:'Tasks',icon:'ti-check',cls:'special-tab'},
+  {id:'habits',label:'Habits',icon:'ti-flame',cls:'special-tab'},
+  {id:'networth',label:'Net Worth',icon:'ti-cash',cls:'special-tab'},
+  {id:'businesses-hub',label:'Businesses',icon:'ti-rocket',cls:'special-tab'},
+  {id:'pipeline',label:'Networking',icon:'ti-briefcase',cls:'special-tab'},
+  {id:'school-track',label:'School',icon:'ti-school',cls:'special-tab'},
+  {id:'review',label:'Weekly Review',icon:'ti-writing',cls:'special-tab'},
+  ...DOMAIN_KEYS.filter(k=>k!=='businesses'&&k!=='school'&&k!=='recruiting').map(k=>({id:'domain:'+k,label:DOMAINS[k].label,icon:DOMAINS[k].icon,cls:''}))
+];
+function renderNav(){
+  const el=$('top-nav'); el.innerHTML='';
+  VIEWS.forEach(v=>{
+    const btn=document.createElement('button');
+    const isActive=activeView===v.id||(v.id.startsWith('domain:')&&activeView==='domain:'+v.id.split(':')[1]);
+    btn.className='domain-tab '+(v.cls||'')+(isActive?' active':'');
+    btn.innerHTML=`<i class="ti ${v.icon}"></i>${v.label}`;
+    btn.onclick=()=>{activeView=v.id;renderAll()};
+    el.appendChild(btn);
+  });
+}
+
+/* ---------- MODAL ---------- */
+function openModal(html){
+  $('modal-root').innerHTML=`<div class="modal-overlay" id="modal-overlay"><div class="modal">${html}</div></div>`;
+  $('modal-overlay').onclick=e=>{if(e.target.id==='modal-overlay') closeModal()};
+}
+function closeModal(){$('modal-root').innerHTML=''}
+
+/* ============================================================
+   VIEW RENDERERS
+   ============================================================ */
+
+/* --- HOME DASHBOARD --- */
+function renderHome(){
+  const today=todayStr();
+  const nw=allAccounts.reduce((s,a)=>s+(parseFloat(a.balance)||0),0);
+  const gymE=(allEntries.gym||[]).slice(-1)[0];
+  const sleepE=(allEntries.sleep||[]);
+  const avgSleep=sleepE.length?sleepE.slice(-7).reduce((s,e)=>s+(parseFloat(e.hours)||0),0)/Math.min(7,sleepE.length):0;
+  const todayTasks=allTasks.daily.filter(t=>!t.done).length;
+  const totalTasks=allTasks.daily.length;
+  const doneTasks=totalTasks-todayTasks;
+  const habitsDoneToday=allHabits.filter(h=>h.log[today]).length;
+  const firmsByStage={};
+  PIPELINE_STAGES.forEach(s=>firmsByStage[s]=(allFirms.filter(f=>f.stage===s).length));
+  const activeGoals=allGoals.filter(g=>progressPct(g)<100);
+  const bodyW=gymE&&gymE.weight?gymE.weight:'—';
+  const outreachTotal=(allEntries.recruiting||[]).filter(e=>e.activity==='Networking / outreach').length;
+  const content=$('main-content');
+  content.innerHTML=`
+  <div class="home-grid">
+    <div class="home-card">
+      <h3>Finances</h3>
+      <div class="stat-big" style="color:var(--green)">${fmtMoney(nw)}</div>
+      <div class="stat-label">Net worth across ${allAccounts.length} account${allAccounts.length!==1?'s':''}</div>
+      ${allAccounts.slice(0,3).map(a=>`<div class="home-metric-row"><span>${a.name}</span><span class="hmr-val">${fmtMoney(a.balance)}</span></div>`).join('')}
+    </div>
+    <div class="home-card">
+      <h3>Today's tasks</h3>
+      <div class="stat-big">${doneTasks}<span style="font-size:18px;color:var(--text-dim)">/${totalTasks}</span></div>
+      <div class="stat-label">tasks completed today</div>
+      <div class="home-metric-row"><span>Habits done</span><span class="hmr-val">${habitsDoneToday}/${allHabits.length}</span></div>
+      <div class="home-metric-row"><span>Domains logged</span><span class="hmr-val">${DOMAIN_KEYS.filter(k=>(allEntries[k]||[]).some(e=>e.date===today)).length}/${DOMAIN_KEYS.length}</span></div>
+    </div>
+    <div class="home-card">
+      <h3>Body & recovery</h3>
+      <div class="stat-big">${bodyW}<span style="font-size:16px;color:var(--text-dim)"> lbs</span></div>
+      <div class="stat-label">current bodyweight</div>
+      <div class="home-metric-row"><span>Avg sleep (7 days)</span><span class="hmr-val" style="${avgSleep>0?'color:'+sleepColor(avgSleep):''}">${avgSleep>0?avgSleep.toFixed(1)+'h':'—'}</span></div>
+      <div class="home-metric-row"><span>Last session</span><span class="hmr-val">${gymE?gymE.session||'—':'—'}</span></div>
+    </div>
+    <div class="home-card">
+      <h3>Recruiting pipeline</h3>
+      <div class="stat-big">${allFirms.length}</div>
+      <div class="stat-label">firms tracked across all cycles</div>
+      ${PIPELINE_STAGES.slice(0,4).map(s=>`<div class="home-metric-row"><span>${s}</span><span class="hmr-val">${firmsByStage[s]||0}</span></div>`).join('')}
+    </div>
+    <div class="home-card">
+      <h3>Active goals</h3>
+      ${activeGoals.length===0?'<div style="color:var(--text-faint);font-size:13px;margin-top:8px">No active goals. Add some in the Goals tab.</div>':''}
+      ${activeGoals.slice(0,4).map(g=>`
+        <div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px">
+            <span>${g.title}</span><span style="color:var(--green);font-family:'JetBrains Mono',monospace">${Math.round(progressPct(g))}%</span>
+          </div>
+          <div class="progress-track"><div class="progress-fill" style="width:${progressPct(g)}%"></div></div>
+        </div>`).join('')}
+    </div>
+    <div class="home-card">
+      <h3>EVA Capital</h3>
+      ${(()=>{const s=JSON.parse(sGet('eva-stats')||'{"dcf":0,"pitch":0,"equities":13}');return`
+        <div class="stat-big">${s.equities}</div>
+        <div class="stat-label">equities covered</div>
+        <div class="home-metric-row"><span>DCF models done</span><span class="hmr-val">${s.dcf}</span></div>
+        <div class="home-metric-row"><span>Pitch decks done</span><span class="hmr-val">${s.pitch}</span></div>`;})()}
+    </div>
+  </div>`;
+}
+
+/* --- GOALS --- */
+function renderGoals(){
+  const el=$('main-content');
+  el.innerHTML=`<div class="section-title">Goals
+    <button class="submit green-btn" id="add-goal-btn" style="width:auto;margin:0;padding:8px 16px"><i class="ti ti-plus"></i> New goal</button>
+  </div>
+  <div class="goals-grid" id="goals-grid"></div>`;
+  $('add-goal-btn').onclick=openAddGoalModal;
+  const grid=$('goals-grid');
+  if(allGoals.length===0){
+    grid.innerHTML=`<div class="goal-empty"><i class="ti ti-target" style="font-size:24px;display:block;margin-bottom:9px;color:var(--line-bright)"></i>No goals yet. Add your first one, like TFSA $5,000 → $7,000 or weight 140 → 170 lbs.</div>`;
+    return;
+  }
+  allGoals.forEach(g=>{
+    const pct=progressPct(g);
+    const mPct=g.milestone!=null&&g.target!==g.start?Math.max(0,Math.min(100,((g.milestone-g.start)/(g.target-g.start))*100)):null;
+    const card=document.createElement('div'); card.className='goal-card';
+    card.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><div class="goal-title">${g.title}</div><div class="goal-badge">${g.domain||'general'}</div></div>
+        <button class="icon-btn danger del-goal" data-id="${g.id}"><i class="ti ti-trash"></i></button>
+      </div>
+      <div class="goal-values">
+        <span class="goal-current">${fmtNum(g.current)}${g.unit||''}</span>
+        <span class="goal-target-lbl">/ ${fmtNum(g.target)}${g.unit||''} target</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" style="width:${pct}%"></div>
+        ${mPct!==null?`<div class="milestone-tick" style="left:${mPct}%" title="Milestone: ${fmtNum(g.milestone)}${g.unit||''}"></div>`:''}
+      </div>
+      <div class="goal-meta">
+        <span>${mPct!==null?'milestone: '+fmtNum(g.milestone)+(g.unit||''):(g.deadline?'by '+g.deadline:'')}</span>
+        <span class="pct">${Math.round(pct)}%</span>
+      </div>
+      <div class="goal-actions">
+        <button class="update-goal" data-id="${g.id}"><i class="ti ti-pencil"></i> Update</button>
+        ${g.deadline?`<button style="flex:none;background:none;border:none;color:var(--text-faint);font-size:12px;padding:6px 8px" title="Deadline">${daysUntil(g.deadline)} days left</button>`:''}
+      </div>`;
+    grid.appendChild(card);
+    card.querySelector('.update-goal').onclick=()=>openUpdateGoalModal(g.id);
+    card.querySelector('.del-goal').onclick=()=>{allGoals=allGoals.filter(x=>x.id!==g.id);saveGoals();renderAll()};
+  });
+}
+
+function openAddGoalModal(){
+  const domOpts=DOMAIN_KEYS.map(k=>`<option value="${k}">${DOMAINS[k].label}</option>`).join('')+`<option value="general">General</option>`;
+  openModal(`<h3>New goal</h3>
+    <label>Goal title</label><input id="g-title" placeholder="e.g. TFSA contribution">
+    <label>Domain</label><select id="g-domain">${domOpts}</select>
+    <div class="field-row-2">
+      <div><label>Starting point</label><input id="g-start" type="number" placeholder="0"></div>
+      <div><label>Current value</label><input id="g-current" type="number" placeholder="5000"></div>
+    </div>
+    <div class="field-row-2">
+      <div><label>Final target</label><input id="g-target" type="number" placeholder="7000"></div>
+      <div><label>Unit</label><input id="g-unit" placeholder="$, lbs, %..."></div>
+    </div>
+    <label>Milestone / checkpoint (optional)</label><input id="g-milestone" type="number" placeholder="e.g. 150 if target is 170">
+    <label>Deadline (optional)</label><input id="g-deadline" type="text" placeholder="e.g. Dec 2029">
+    <div class="modal-actions"><button id="g-cancel">Cancel</button><button class="primary" id="g-save">Save goal</button></div>`);
+  $('g-cancel').onclick=closeModal;
+  $('g-save').onclick=()=>{
+    const title=$('g-title').value.trim();
+    const start=parseFloat($('g-start').value)||0;
+    const current=parseFloat($('g-current').value);
+    const target=parseFloat($('g-target').value);
+    if(!title||isNaN(target)||isNaN(current)){showToast('Fill in title, current value, and target','ti-alert-triangle');return}
+    const mRaw=$('g-milestone').value;
+    allGoals.push({id:'g_'+Date.now(),title,domain:$('g-domain').value,start,current,target,
+      unit:$('g-unit').value.trim(),milestone:mRaw?parseFloat(mRaw):null,
+      deadline:$('g-deadline').value.trim(),celebrated:false});
+    saveGoals(); closeModal(); showToast('Goal added'); renderAll();
+  };
+}
+function openUpdateGoalModal(id){
+  const g=allGoals.find(x=>x.id===id); if(!g) return;
+  openModal(`<h3>Update: ${g.title}</h3>
+    <label>Current value</label><input id="g-cur-edit" type="number" value="${g.current}">
+    <div class="modal-actions"><button id="gc">Cancel</button><button class="primary" id="gu">Save</button></div>`);
+  $('gc').onclick=closeModal;
+  $('gu').onclick=()=>{
+    const val=parseFloat($('g-cur-edit').value);
+    if(isNaN(val)){showToast('Enter a number','ti-alert-triangle');return}
+    const was=progressPct(g)>=100; g.current=val;
+    if(progressPct(g)>=100&&!was){g.celebrated=false;showToast(g.title+' target reached!','ti-confetti')}
+    else showToast('Goal updated');
+    saveGoals(); closeModal(); renderAll();
+  };
+}
+
+/* --- TASKS --- */
+let taskTab='daily';
+function renderTasks(){
+  const el=$('main-content');
+  el.innerHTML=`<div class="section-title">Tasks & Checklists</div>
+  <div class="domain-grid">
+    <div class="panel">
+      <h2><i class="ti ti-checkbox"></i>Add task</h2>
+      <label>Period</label>
+      <div class="task-tab-row" id="task-type-toggle">
+        <button class="task-tab ${taskTab==='daily'?'active':''}" data-tab="daily">Daily</button>
+        <button class="task-tab ${taskTab==='weekly'?'active':''}" data-tab="weekly">Weekly</button>
+      </div>
+      <label>Task</label>
+      <div class="field-with-mic">
+        <input id="task-input" placeholder="What needs to get done...">
+        <button class="mic-btn" id="task-mic"><i class="ti ti-microphone"></i></button>
+      </div>
+      <label>Link to goal (optional)</label>
+      <select id="task-goal-link">
+        <option value="">None</option>
+        ${allGoals.map(g=>`<option value="${g.id}">${g.title}</option>`).join('')}
+      </select>
+      <label>Priority</label>
+      <select id="task-priority">
+        <option value="normal">Normal</option>
+        <option value="high">High priority</option>
+        <option value="top3">Top 3 today</option>
+      </select>
+      <button class="submit" id="add-task-btn"><i class="ti ti-plus"></i> Add task</button>
+      <button class="submit secondary" id="reset-daily-btn"><i class="ti ti-refresh"></i> Reset daily list</button>
+    </div>
+    <div class="panel">
+      <div class="log-header">
+        <h2><i class="ti ti-list-check"></i><span id="task-list-title">Daily tasks</span></h2>
+        <span class="log-count" id="task-count"></span>
+      </div>
+      <div class="task-tab-row" style="margin-bottom:14px">
+        <button class="task-tab ${taskTab==='daily'?'active':''}" data-tab="daily" id="view-daily-btn">Daily</button>
+        <button class="task-tab ${taskTab==='weekly'?'active':''}" data-tab="weekly" id="view-weekly-btn">Weekly</button>
+      </div>
+      <div id="task-list"></div>
+    </div>
+  </div>`;
+  document.querySelectorAll('[data-tab]').forEach(btn=>{
+    btn.onclick=()=>{taskTab=btn.dataset.tab;renderTasks()};
+  });
+  $('task-mic').onclick=()=>startVoice('task-input',$('task-mic'));
+  $('add-task-btn').onclick=()=>{
+    const text=$('task-input').value.trim();
+    if(!text){showToast('Enter a task first','ti-alert-triangle');return}
+    allTasks[taskTab].push({id:'t'+Date.now(),text,done:false,
+      goalId:$('task-goal-link').value,priority:$('task-priority').value,
+      created:todayStr()});
+    saveTasks(); $('task-input').value=''; renderTasks();
+  };
+  $('reset-daily-btn').onclick=()=>{
+    allTasks.daily=allTasks.daily.filter(t=>!t.done); saveTasks(); renderTasks(); showToast('Completed daily tasks cleared');
+  };
+  renderTaskList();
+}
+function renderTaskList(){
+  const tasks=allTasks[taskTab];
+  const el=$('task-list');
+  const done=tasks.filter(t=>t.done).length;
+  if($('task-count')) $('task-count').textContent=`${done}/${tasks.length} done`;
+  if($('task-list-title')) $('task-list-title').textContent=taskTab==='daily'?'Daily tasks':'Weekly tasks';
+  if(!el) return;
+  if(tasks.length===0){el.innerHTML=`<div class="log-empty"><i class="ti ti-checkbox"></i>No ${taskTab} tasks yet. Add one on the left.</div>`;return}
+  el.innerHTML='';
+  const sorted=[...tasks].sort((a,b)=>{
+    const p={top3:0,high:1,normal:2}; return (p[a.priority]||2)-(p[b.priority]||2);
+  });
+  sorted.forEach(task=>{
+    const row=document.createElement('div'); row.className='task-item';
+    const priorityColor=task.priority==='top3'?'var(--accent)':task.priority==='high'?'var(--amber)':'var(--line-bright)';
+    const linkedGoal=task.goalId?allGoals.find(g=>g.id===task.goalId):null;
+    row.innerHTML=`
+      <button class="task-check ${task.done?'done':''}" data-id="${task.id}">
+        ${task.done?'<i class="ti ti-check"></i>':''}
+      </button>
+      <div style="flex:1">
+        <div class="task-text ${task.done?'done':''}" style="${task.priority!=='normal'?'color:'+priorityColor:''}">${task.text}</div>
+        ${linkedGoal?`<div class="task-meta">→ ${linkedGoal.title}</div>`:''}
+      </div>
+      <button class="icon-btn danger" data-del="${task.id}"><i class="ti ti-x"></i></button>`;
+    row.querySelector('.task-check').onclick=()=>{
+      const t=allTasks[taskTab].find(x=>x.id===task.id); if(!t) return;
+      t.done=!t.done; saveTasks(); renderTaskList();
+    };
+    row.querySelector('[data-del]').onclick=()=>{
+      allTasks[taskTab]=allTasks[taskTab].filter(x=>x.id!==task.id); saveTasks(); renderTaskList();
+    };
+    el.appendChild(row);
+  });
+}
+
+/* --- HABITS --- */
+function renderHabits(){
+  const today=todayStr();
+  const el=$('main-content');
+  el.innerHTML=`<div class="section-title">Habits & Streaks
+    <button class="submit green-btn" id="add-habit-btn" style="width:auto;margin:0;padding:8px 14px"><i class="ti ti-plus"></i> Add habit</button>
+  </div>
+  <div class="domain-grid">
+    <div class="panel">
+      <h2><i class="ti ti-flame"></i>Today's habits</h2>
+      <div id="habit-list"></div>
+    </div>
+    <div class="panel">
+      <h2><i class="ti ti-calendar"></i>Habit heatmap (last 12 weeks)</h2>
+      <div id="habit-heatmap"></div>
+    </div>
+  </div>`;
+  $('add-habit-btn').onclick=()=>{
+    openModal(`<h3>Add habit</h3>
+      <label>Habit name</label><input id="hn-input" placeholder="e.g. Cold shower, Journal...">
+      <div class="modal-actions"><button id="hn-cancel">Cancel</button><button class="primary" id="hn-save">Add</button></div>`);
+    $('hn-cancel').onclick=closeModal;
+    $('hn-save').onclick=()=>{
+      const name=$('hn-input').value.trim(); if(!name) return;
+      allHabits.push({id:'h'+Date.now(),name,log:{}}); saveHabits(); closeModal(); renderHabits();
+    };
+  };
+  renderHabitList(today);
+  renderHabitHeatmap(today);
+}
+function getStreak(habit){
+  let streak=0; const d=new Date();
+  while(true){
+    const key=d.toISOString().slice(0,10);
+    if(!habit.log[key]) break;
+    streak++; d.setDate(d.getDate()-1);
+  }
+  return streak;
+}
+function renderHabitList(today){
+  const el=$('habit-list'); if(!el) return;
+  el.innerHTML='';
+  if(allHabits.length===0){
+    el.innerHTML=`<div style="color:var(--text-faint);font-size:13px;padding:16px 0">No habits yet. Add one above.</div>`;
+    return;
+  }
+  allHabits.forEach(h=>{
+    const done=!!h.log[today]; const streak=getStreak(h);
+    const row=document.createElement('div'); row.className='habit-row';
+    row.style.cssText='display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)';
+    const checkBtn=document.createElement('button');
+    checkBtn.className='habit-check-btn'+(done?' done':'');
+    checkBtn.innerHTML=done?'<i class="ti ti-check"></i>':'<i class="ti ti-circle"></i>';
+    checkBtn.onclick=()=>{
+      const hb=allHabits.find(x=>x.id===h.id); if(!hb) return;
+      if(hb.log[today]) delete hb.log[today]; else hb.log[today]=true;
+      saveHabits(); renderHabitList(today);
+    };
+    const nameEl=document.createElement('div');
+    nameEl.style.cssText='flex:1;font-size:13.5px';
+    nameEl.textContent=h.name;
+    const streakEl=document.createElement('span');
+    streakEl.className='habit-streak';
+    streakEl.textContent=streak>0?'🔥 '+streak:'';
+    const editBtn=document.createElement('button');
+    editBtn.className='icon-btn';
+    editBtn.style.cssText='background:none;border:1px solid var(--line-bright);border-radius:6px;color:var(--text-dim);cursor:pointer;padding:4px 9px;font-size:12px;font-family:Inter,sans-serif';
+    editBtn.textContent='Rename';
+    editBtn.onclick=()=>{
+      openModal(`<h3>Rename habit</h3>
+        <label>Habit name</label><input id="hrename-input" value="${h.name}">
+        <div class="modal-actions"><button id="hrename-cancel">Cancel</button><button class="primary" id="hrename-save">Save</button></div>`);
+      $('hrename-cancel').onclick=closeModal;
+      $('hrename-save').onclick=()=>{
+        const newName=$('hrename-input').value.trim(); if(!newName) return;
+        const hb=allHabits.find(x=>x.id===h.id); if(hb) hb.name=newName;
+        saveHabits(); closeModal(); renderHabits();
+      };
+    };
+    const delBtn=document.createElement('button');
+    delBtn.style.cssText='background:none;border:1px solid var(--red);border-radius:6px;color:var(--red);cursor:pointer;padding:4px 9px;font-size:12px;font-family:Inter,sans-serif';
+    delBtn.textContent='Remove';
+    delBtn.onclick=()=>{
+      allHabits=allHabits.filter(x=>x.id!==h.id);
+      saveHabits(); renderHabits();
+    };
+    row.appendChild(checkBtn);
+    row.appendChild(nameEl);
+    row.appendChild(streakEl);
+    row.appendChild(editBtn);
+    row.appendChild(delBtn);
+    el.appendChild(row);
+  });
+}
+function renderHabitHeatmap(today){
+  const el=$('habit-heatmap'); if(!el) return;
+  el.innerHTML='';
+  const days=84;
+  const dateList=[]; for(let i=days-1;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);dateList.push(d.toISOString().slice(0,10))}
+  allHabits.forEach(h=>{
+    const label=document.createElement('div');
+    label.style.cssText='font-size:12px;color:var(--text-dim);margin-bottom:4px;margin-top:10px';
+    label.textContent=h.name;
+    const row=document.createElement('div'); row.className='heatmap-row';
+    dateList.forEach(d=>{
+      const cell=document.createElement('div'); cell.className='heatmap-cell';
+      if(h.log[d]){cell.style.background=d===today?'var(--accent)':'#2f9e5c';cell.style.borderColor='transparent'}
+      cell.title=d; row.appendChild(cell);
+    });
+    el.appendChild(label); el.appendChild(row);
+  });
+}
+
+/* --- NET WORTH --- */
+function renderNetWorth(){
+  const nw=allAccounts.reduce((s,a)=>s+(parseFloat(a.balance)||0),0);
+  const holdings=allHoldings;
+  const el=$('main-content');
+  el.innerHTML=`<div class="section-title">Net Worth & Investments</div>
+  <div class="domain-grid">
+    <div>
+      <div class="panel">
+        <h2><i class="ti ti-bank"></i>Accounts</h2>
+        <div class="nw-total">${fmtMoney(nw)}</div>
+        <div style="font-size:12px;color:var(--text-dim);margin-bottom:14px">total net worth</div>
+        <div id="accounts-list"></div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <input id="acct-name" placeholder="Account name" style="flex:1">
+          <input id="acct-bal" type="number" placeholder="Balance" style="width:120px">
+        </div>
+        <button class="submit" id="add-account-btn"><i class="ti ti-plus"></i> Add account</button>
+      </div>
+      <div class="panel" style="margin-top:18px">
+        <h2><i class="ti ti-chart-pie"></i>Portfolio allocation</h2>
+        <div id="allocation-view"></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2><i class="ti ti-trending-up"></i>Investment holdings</h2>
+      <table class="holdings-table" id="holdings-table">
+        <thead><tr><th>Ticker</th><th>Shares</th><th>Book ($)</th><th>Curr. ($)</th><th>G/L</th><th></th></tr></thead>
+        <tbody id="holdings-body"></tbody>
+      </table>
+      <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:14px">
+        <input id="h-ticker" placeholder="Ticker" style="width:70px">
+        <input id="h-shares" type="number" placeholder="Shares" style="width:70px">
+        <input id="h-book" type="number" placeholder="Book $" style="width:80px">
+        <input id="h-price" type="number" placeholder="Curr $" style="width:80px">
+        <input id="h-type" placeholder="Type (TFSA, RRSP...)" style="flex:1">
+      </div>
+      <button class="submit" id="add-holding-btn"><i class="ti ti-plus"></i> Add holding</button>
+      <p style="font-size:11.5px;color:var(--text-faint);margin-top:10px;line-height:1.5">Prices are entered manually. Update current price periodically to keep the gain/loss accurate.</p>
+    </div>
+  </div>`;
+  // accounts
+  const acctList=$('accounts-list');
+  allAccounts.forEach((a,i)=>{
+    const row=document.createElement('div'); row.className='account-row';
+    row.innerHTML=`<span class="account-name">${a.name}</span>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="account-val">${fmtMoney(a.balance)}</span>
+        <button class="icon-btn danger" data-del-acct="${i}"><i class="ti ti-x"></i></button>
+      </div>`;
+    row.querySelector('[data-del-acct]').onclick=()=>{allAccounts.splice(i,1);saveAccounts();renderNetWorth()};
+    acctList.appendChild(row);
+  });
+  $('add-account-btn').onclick=()=>{
+    const name=$('acct-name').value.trim(); const bal=$('acct-bal').value;
+    if(!name){showToast('Enter account name','ti-alert-triangle');return}
+    allAccounts.push({name,balance:parseFloat(bal)||0}); saveAccounts(); renderNetWorth();
+  };
+  // holdings
+  const tbody=$('holdings-body');
+  let totalValue=0,totalBook=0;
+  holdings.forEach((h,i)=>{
+    const mv=(parseFloat(h.price)||0)*(parseFloat(h.shares)||0);
+    const bv=(parseFloat(h.book)||0)*(parseFloat(h.shares)||0);
+    const gl=mv-bv; totalValue+=mv; totalBook+=bv;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="font-weight:700;color:var(--accent)">${h.ticker}</td>
+      <td>${fmtNum(h.shares,2)}</td><td>${fmtMoney(bv)}</td><td>${fmtMoney(mv)}</td>
+      <td style="color:${gl>=0?'var(--green)':'var(--red)'}">${gl>=0?'+':''}${fmtMoney(gl)}</td>
+      <td><button class="icon-btn danger" data-del-h="${i}"><i class="ti ti-x"></i></button></td>`;
+    tr.querySelector('[data-del-h]').onclick=()=>{allHoldings.splice(i,1);saveHoldings();renderNetWorth()};
+    tbody.appendChild(tr);
+  });
+  if(holdings.length>0){
+    const tfoot=document.createElement('tr');
+    const gl=totalValue-totalBook;
+    tfoot.innerHTML=`<td colspan="3" style="font-weight:600;color:var(--text-dim);padding-top:10px">Total</td>
+      <td style="font-weight:600">${fmtMoney(totalValue)}</td>
+      <td style="color:${gl>=0?'var(--green)':'var(--red)'};">${gl>=0?'+':''}${fmtMoney(gl)}</td><td></td>`;
+    tbody.appendChild(tfoot);
+  }
+  $('add-holding-btn').onclick=()=>{
+    const ticker=$('h-ticker').value.trim().toUpperCase();
+    if(!ticker){showToast('Enter a ticker','ti-alert-triangle');return}
+    allHoldings.push({ticker,shares:parseFloat($('h-shares').value)||0,
+      book:parseFloat($('h-book').value)||0,price:parseFloat($('h-price').value)||0,
+      type:$('h-type').value.trim()});
+    saveHoldings(); renderNetWorth();
+  };
+  // allocation
+  const allocEl=$('allocation-view');
+  if(holdings.length===0){allocEl.innerHTML='<div style="color:var(--text-faint);font-size:13px">Add holdings to see allocation.</div>';return}
+  const byType={};
+  holdings.forEach(h=>{
+    const t=h.type||'Other'; const mv=(parseFloat(h.price)||0)*(parseFloat(h.shares)||0);
+    byType[t]=(byType[t]||0)+mv;
+  });
+  const total=Object.values(byType).reduce((s,v)=>s+v,0);
+  const colors=['var(--accent)','var(--green)','var(--blue)','var(--amber)','var(--purple)','var(--red)'];
+  allocEl.innerHTML=Object.entries(byType).map(([t,v],i)=>{
+    const pct=total>0?Math.round((v/total)*100):0;
+    return `<div style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:4px">
+        <span>${t}</span><span style="font-family:'JetBrains Mono',monospace">${pct}% · ${fmtMoney(v)}</span>
+      </div>
+      <div class="progress-track"><div style="width:${pct}%;height:100%;background:${colors[i%colors.length]};border-radius:5px;transition:width .4s"></div></div>
+    </div>`;
+  }).join('');
+}
+
+const NETWORKING_CYCLES=['Fall 2026','Winter 2027','Summer 2027','Fall 2027','Winter 2028','Summer 2028','Full-time'];
+
+/* --- NETWORKING PIPELINE --- */
+let activeCycle=NETWORKING_CYCLES[1];
+function renderPipeline(){
+  const el=$('main-content');
+  el.innerHTML=`
+  <div class="section-title">Networking Pipeline
+    <button class="submit green-btn" id="add-firm-btn" style="width:auto;margin:0;padding:8px 14px"><i class="ti ti-plus"></i> Add firm</button>
+  </div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px">
+    ${NETWORKING_CYCLES.map(c=>`<button class="task-tab ${c===activeCycle?'active':''}" style="flex:none;border:1px solid var(--line-bright);border-radius:20px;padding:6px 14px;font-size:12px" data-cycle="${c}">${c} <span style="opacity:.65">(${allFirms.filter(f=>f.cycle===c).length})</span></button>`).join('')}
+  </div>
+  <div class="pipeline-stages" id="pipeline-stages"></div>
+  <div class="panel">
+    <h2><i class="ti ti-building-bank"></i>${activeCycle}</h2>
+    <div id="firms-list"></div>
+  </div>`;
+  document.querySelectorAll('[data-cycle]').forEach(btn=>{btn.onclick=()=>{activeCycle=btn.dataset.cycle;renderPipeline()}});
+  const stagesEl=$('pipeline-stages');
+  PIPELINE_STAGES.forEach(s=>{
+    const count=allFirms.filter(f=>f.cycle===activeCycle&&f.stage===s).length;
+    const div=document.createElement('div'); div.className='pipeline-stage';
+    div.innerHTML=`<div class="ps-label">${s}</div><div class="ps-count">${count}</div>`;
+    stagesEl.appendChild(div);
+  });
+  $('add-firm-btn').onclick=openAddFirmModal;
+  const list=$('firms-list');
+  const cycleFirms=allFirms.filter(f=>f.cycle===activeCycle);
+  if(cycleFirms.length===0){list.innerHTML=`<div class="log-empty"><i class="ti ti-briefcase"></i>No firms for ${activeCycle} yet.</div>`;return}
+  cycleFirms.forEach(f=>{
+    const i=allFirms.indexOf(f);
+    const daysLeft=f.deadline?daysUntil(f.deadline):null;
+    const div=document.createElement('div'); div.className='pipeline-firm';
+    div.innerHTML=`
+      <div class="pipeline-firm-top">
+        <div class="pipeline-firm-name">${f.name}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="stage-badge ${STAGE_CLASSES[f.stage]||''}">${f.stage}</span>
+          <button class="icon-btn danger" data-del-firm="${i}"><i class="ti ti-x"></i></button>
+        </div>
+      </div>
+      <div class="pipeline-firm-meta">${f.role||''} ${f.contact?' · '+f.contact:''} ${daysLeft!==null?' · '+daysLeft+' days until deadline':''}</div>
+      ${f.note?`<div class="log-note">${f.note}</div>`:''}
+      <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap">
+        ${PIPELINE_STAGES.map(s=>`<button class="task-tab ${f.stage===s?'active':''}" style="flex:none;font-size:10px;padding:4px 9px;border-radius:20px;border:1px solid var(--line-bright)" data-stage="${s}">${s}</button>`).join('')}
+      </div>`;
+    div.querySelectorAll('[data-stage]').forEach(btn=>{btn.onclick=()=>{allFirms[i].stage=btn.dataset.stage;saveFirms();renderPipeline()}});
+    div.querySelector('[data-del-firm]').onclick=()=>{allFirms.splice(i,1);saveFirms();renderPipeline()};
+    list.appendChild(div);
+  });
+}
+function openAddFirmModal(){
+  openModal(`<h3>Add firm</h3>
+    <label>Firm name</label><input id="f-name" placeholder="e.g. Altas Partners">
+    <label>Recruiting cycle</label>
+    <select id="f-cycle">${NETWORKING_CYCLES.map(c=>`<option ${c===activeCycle?'selected':''}>${c}</option>`).join('')}</select>
+    <label>Target role</label><input id="f-role" placeholder="e.g. Summer Analyst">
+    <label>Stage</label>
+    <select id="f-stage">${PIPELINE_STAGES.map(s=>`<option>${s}</option>`).join('')}</select>
+    <label>Key contact</label><input id="f-contact" placeholder="Name, title...">
+    <label>Deadline (optional)</label><input id="f-deadline" placeholder="e.g. 2027-01-15">
+    <label>Notes</label><textarea id="f-note" placeholder="What you know, what you need..."></textarea>
+    <div class="modal-actions"><button id="f-cancel">Cancel</button><button class="primary" id="f-save">Add firm</button></div>`);
+  $('f-cancel').onclick=closeModal;
+  $('f-save').onclick=()=>{
+    const name=$('f-name').value.trim(); if(!name){showToast('Enter firm name','ti-alert-triangle');return}
+    allFirms.push({name,cycle:$('f-cycle').value,role:$('f-role').value.trim(),stage:$('f-stage').value,
+      contact:$('f-contact').value.trim(),deadline:$('f-deadline').value.trim(),
+      note:$('f-note').value.trim()}); saveFirms(); closeModal(); showToast('Firm added'); renderPipeline();
+  };
+}
+
+/* --- BUSINESSES HUB --- */
+let bizTab='log'; // 'log' | 'eva' | 'other'
+function renderBusinessesHub(){
+  const el=$('main-content');
+  const bizEntries=(allEntries.businesses||[]).slice().reverse();
+  el.innerHTML=`
+  <div class="section-title">Businesses</div>
+  <div class="task-tab-row" id="biz-tab-row" style="max-width:420px;margin-bottom:20px">
+    <button class="task-tab ${bizTab==='log'?'active':''}" data-biztab="log">Daily log</button>
+    <button class="task-tab ${bizTab==='eva'?'active':''}" data-biztab="eva">EVA Capital</button>
+    <button class="task-tab ${bizTab==='other'?'active':''}" data-biztab="other">Other ventures</button>
+  </div>
+  <div id="biz-content"></div>`;
+  document.querySelectorAll('[data-biztab]').forEach(btn=>{
+    btn.onclick=()=>{bizTab=btn.dataset.biztab;renderBusinessesHub()};
+  });
+  const bc=$('biz-content');
+  if(bizTab==='log'){
+    // daily check-in log for business activity
+    const domain=DOMAINS.businesses;
+    bc.innerHTML=`<div class="domain-grid">
+      <div class="panel">
+        <h2><i class="ti ti-rocket"></i>Log business activity</h2>
+        <button class="submit voice-all" id="biz-voice-btn"><i class="ti ti-microphone"></i> Speak full entry</button>
+        ${domain.fields.map(f=>{
+          if(f.type==='select') return`<label>${f.label}</label><select id="bfld-${f.key}"><option value="">Select...</option>${f.options.map(o=>`<option>${o}</option>`).join('')}</select>`;
+          if(f.voice){
+            const tag=f.type==='textarea'?`<textarea id="bfld-${f.key}" placeholder="${f.placeholder||''}"></textarea>`:`<input id="bfld-${f.key}" type="${f.type}" placeholder="${f.placeholder||''}">`;
+            return`<label>${f.label}</label><div class="field-with-mic">${tag}<button class="mic-btn" data-bfield="bfld-${f.key}"><i class="ti ti-microphone"></i></button></div>`;
+          }
+          return`<label>${f.label}</label><input id="bfld-${f.key}" type="${f.type}" placeholder="${f.placeholder||''}">`;
+        }).join('')}
+        <button class="submit" id="biz-submit-btn"><i class="ti ti-plus"></i> Add entry</button>
+      </div>
+      <div class="panel">
+        <div class="log-header">
+          <h2><i class="ti ti-list"></i>Business log</h2>
+          <span class="log-count">${bizEntries.length} entries</span>
+        </div>
+        <div id="biz-log-list">
+          ${bizEntries.length===0?`<div class="log-empty"><i class="ti ti-rocket"></i>No entries yet.</div>`:
+            bizEntries.map(e=>`
+              <div class="log-entry">
+                <div class="log-entry-top">
+                  <div class="log-stats">
+                    ${e.metric?`<span>Metric: <b>${e.metric}</b></span>`:''}
+                    ${e.value?`<span>Value: <b>${e.value}</b></span>`:''}
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span class="log-date">${fmtDate(e.date)}</span>
+                    <button class="icon-btn danger" data-del-biz="${e.timestamp}"><i class="ti ti-x"></i></button>
+                  </div>
+                </div>
+                ${e.note?`<div class="log-note">${e.note.replace(/</g,'&lt;')}</div>`:''}
+              </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+    $('biz-voice-btn').onclick=e=>startVoice('bfld-note',e.currentTarget);
+    bc.querySelectorAll('[data-bfield]').forEach(btn=>btn.onclick=()=>startVoice(btn.dataset.bfield,btn));
+    $('biz-submit-btn').onclick=()=>{
+      const entry={date:todayStr(),timestamp:Date.now()};
+      let hasVal=false;
+      domain.fields.forEach(f=>{const el2=$('bfld-'+f.key);if(!el2) return;const v=el2.value.trim();if(v) hasVal=true;entry[f.key]=v});
+      if(!hasVal){showToast('Add at least one value','ti-alert-triangle');return}
+      if(!allEntries.businesses) allEntries.businesses=[];
+      allEntries.businesses.push(entry); saveEntries('businesses');
+      showToast('Business entry added'); renderBusinessesHub();
+    };
+    bc.querySelectorAll('[data-del-biz]').forEach(btn=>{
+      btn.onclick=()=>{
+        const ts=parseInt(btn.dataset.delBiz);
+        allEntries.businesses=allEntries.businesses.filter(e=>e.timestamp!==ts);
+        saveEntries('businesses'); renderBusinessesHub();
+      };
+    });
+  } else if(bizTab==='eva'){
+    // EVA Capital — editable counters, no ratings
+    const evaStats=JSON.parse(sGet('eva-stats')||'{"dcf":0,"pitch":0,"equities":13}');
+    bc.innerHTML=`<div class="domain-grid">
+      <div class="panel">
+        <h2><i class="ti ti-chart-bar"></i>EVA Capital</h2>
+        <p style="font-size:13px;color:var(--text-dim);margin-bottom:18px;line-height:1.5">Equity research platform. Adjust counts with the +/- buttons as you complete models and pitches.</p>
+        ${[
+          {key:'equities',label:'Equities covered'},
+          {key:'dcf',label:'DCF models done'},
+          {key:'pitch',label:'Pitch decks done'}
+        ].map(s=>`
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)">
+            <div>
+              <div style="font-size:14px;font-weight:500">${s.label}</div>
+              <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--accent);margin-top:2px" id="eva-val-${s.key}">${evaStats[s.key]}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button style="width:38px;height:38px;border-radius:8px;border:1px solid var(--line-bright);background:var(--bg-input);color:var(--text);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center" data-eva-up="${s.key}"><i class="ti ti-plus"></i></button>
+              <button style="width:38px;height:38px;border-radius:8px;border:1px solid var(--line-bright);background:var(--bg-input);color:var(--text);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center" data-eva-down="${s.key}"><i class="ti ti-minus"></i></button>
+            </div>
+          </div>`).join('')}
+        <label style="margin-top:16px">Notes / current focus</label>
+        <textarea id="eva-note" placeholder="What you're working on this week...">${evaStats.note||''}</textarea>
+        <button class="submit" id="eva-save-btn"><i class="ti ti-device-floppy"></i> Save notes</button>
+      </div>
+      <div class="panel">
+        <h2><i class="ti ti-list"></i>Coverage list</h2>
+        <p style="font-size:12px;color:var(--text-dim);margin-bottom:12px">Your 13 equities. Tap any to add a note.</p>
+        <div id="equity-list"></div>
+      </div>
+    </div>`;
+    // wire +/- buttons
+    bc.querySelectorAll('[data-eva-up]').forEach(btn=>{
+      btn.onclick=()=>{
+        const k=btn.dataset.evaUp;
+        evaStats[k]=(evaStats[k]||0)+1;
+        sSet('eva-stats',JSON.stringify(evaStats));
+        const valEl=$('eva-val-'+k); if(valEl) valEl.textContent=evaStats[k];
+      };
+    });
+    bc.querySelectorAll('[data-eva-down]').forEach(btn=>{
+      btn.onclick=()=>{
+        const k=btn.dataset.evaDown;
+        evaStats[k]=Math.max(0,(evaStats[k]||0)-1);
+        sSet('eva-stats',JSON.stringify(evaStats));
+        const valEl=$('eva-val-'+k); if(valEl) valEl.textContent=evaStats[k];
+      };
+    });
+    $('eva-save-btn').onclick=()=>{
+      evaStats.note=$('eva-note').value.trim();
+      sSet('eva-stats',JSON.stringify(evaStats));
+      showToast('EVA Capital notes saved');
+    };
+    // coverage list — dynamic, linked to equities counter
+    const tickers=getEVATickers();
+    const list=$('equity-list');
+    // update header to reflect current count
+    const listHeader=list.previousElementSibling;
+    if(listHeader) listHeader.innerHTML=`<i class="ti ti-list"></i>Your ${evaStats.equities} equities — tap any to add a note`;
+    // add ticker input
+    const addRow=document.createElement('div');
+    addRow.style.cssText='display:flex;gap:8px;margin-bottom:14px';
+    addRow.innerHTML=`<input id="new-ticker-input" placeholder="Add ticker e.g. TSLA" style="flex:1;text-transform:uppercase">
+      <button style="background:var(--accent);border:none;color:#1a0d04;font-weight:600;font-size:13px;padding:8px 14px;border-radius:7px;cursor:pointer" id="add-ticker-btn">Add</button>`;
+    list.appendChild(addRow);
+    addRow.querySelector('#add-ticker-btn').onclick=()=>{
+      const input=addRow.querySelector('#new-ticker-input');
+      const ticker=input.value.trim().toUpperCase(); if(!ticker) return;
+      const current=getEVATickers();
+      if(current.includes(ticker)){showToast(ticker+' already in list','ti-alert-triangle');return}
+      current.push(ticker);
+      saveEVATickers(current);
+      allEquities[ticker]={ticker,note:''}; saveEquities();
+      // auto-increment equities covered counter
+      evaStats.equities=(evaStats.equities||0)+1;
+      sSet('eva-stats',JSON.stringify(evaStats));
+      input.value='';
+      showToast(ticker+' added — equities covered updated');
+      renderBusinessesHub();
+    };
+    tickers.forEach(ticker=>{
+      const eq=allEquities[ticker]||{ticker,note:''};
+      const row=document.createElement('div'); row.className='equity-row';
+      const noteBtn=document.createElement('button');
+      noteBtn.style.cssText='background:none;border:1px solid var(--line-bright);border-radius:6px;color:var(--text-dim);cursor:pointer;padding:4px 9px;font-size:12px;font-family:Inter,sans-serif;margin-right:6px';
+      noteBtn.textContent='Note';
+      noteBtn.onclick=()=>openEditEquityModal(ticker);
+      const removeBtn=document.createElement('button');
+      removeBtn.style.cssText='background:none;border:1px solid var(--red);border-radius:6px;color:var(--red);cursor:pointer;padding:4px 9px;font-size:12px;font-family:Inter,sans-serif';
+      removeBtn.textContent='Remove';
+      removeBtn.onclick=()=>{
+        const current=getEVATickers();
+        saveEVATickers(current.filter(t=>t!==ticker));
+        delete allEquities[ticker]; saveEquities();
+        // auto-decrement equities covered counter
+        evaStats.equities=Math.max(0,(evaStats.equities||0)-1);
+        sSet('eva-stats',JSON.stringify(evaStats));
+        showToast(ticker+' removed — equities covered updated');
+        renderBusinessesHub();
+      };
+      const tickerEl=document.createElement('div'); tickerEl.className='equity-ticker'; tickerEl.textContent=ticker;
+      const noteEl=document.createElement('div'); noteEl.style.cssText='flex:1;padding:0 10px;font-size:12px;color:var(--text-dim)'; noteEl.textContent=eq.note||'No notes';
+      const btnWrap=document.createElement('div'); btnWrap.style.cssText='display:flex;gap:4px;align-items:center;flex-shrink:0';
+      btnWrap.appendChild(noteBtn); btnWrap.appendChild(removeBtn);
+      row.appendChild(tickerEl); row.appendChild(noteEl); row.appendChild(btnWrap);
+      list.appendChild(row);
+    });
+  } else {
+    // Other ventures — add/manage additional businesses
+    const otherBiz=JSON.parse(sGet('other-biz')||'[]');
+    bc.innerHTML=`<div class="domain-grid">
+      <div class="panel">
+        <h2><i class="ti ti-plus"></i>Add a venture</h2>
+        <label>Business name</label><input id="ob-name" placeholder="e.g. My new venture">
+        <label>What it does</label><input id="ob-desc" placeholder="One line description">
+        <label>Current stage</label>
+        <select id="ob-stage">
+          <option>Idea</option><option>Pre-launch</option><option>Active</option><option>On hold</option>
+        </select>
+        <label>Key metric to track</label><input id="ob-metric" placeholder="e.g. Revenue, subscribers...">
+        <button class="submit" id="ob-add-btn"><i class="ti ti-plus"></i> Add venture</button>
+      </div>
+      <div class="panel">
+        <h2><i class="ti ti-rocket"></i>Your ventures</h2>
+        <div class="home-metric-row"><span>EVA Capital</span><span class="stage-badge stage-interview" style="font-size:10px">Active</span></div>
+        <div id="ob-list" style="margin-top:10px">
+          ${otherBiz.length===0?`<div style="color:var(--text-faint);font-size:13px;padding:16px 0">No other ventures added yet.</div>`:
+            otherBiz.map((b,i)=>`
+              <div class="pipeline-firm" style="margin-bottom:8px">
+                <div class="pipeline-firm-top">
+                  <div class="pipeline-firm-name">${b.name}</div>
+                  <div style="display:flex;gap:7px;align-items:center">
+                    <span class="stage-badge stage-research">${b.stage}</span>
+                    <button class="icon-btn danger" data-del-ob="${i}"><i class="ti ti-x"></i></button>
+                  </div>
+                </div>
+                ${b.desc?`<div class="pipeline-firm-meta">${b.desc}</div>`:''}
+                ${b.metric?`<div style="font-size:12px;color:var(--text-dim);margin-top:4px">Tracking: ${b.metric}</div>`:''}
+              </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+    $('ob-add-btn').onclick=()=>{
+      const name=$('ob-name').value.trim(); if(!name){showToast('Enter a name','ti-alert-triangle');return}
+      otherBiz.push({name,desc:$('ob-desc').value.trim(),stage:$('ob-stage').value,metric:$('ob-metric').value.trim()});
+      sSet('other-biz',JSON.stringify(otherBiz)); showToast('Venture added'); renderBusinessesHub();
+    };
+    bc.querySelectorAll('[data-del-ob]').forEach(btn=>{
+      btn.onclick=()=>{otherBiz.splice(parseInt(btn.dataset.delOb),1);sSet('other-biz',JSON.stringify(otherBiz));renderBusinessesHub()};
+    });
+  }
+}
+function openEditEquityModal(ticker){
+  const eq=allEquities[ticker]||{ticker,note:''};
+  openModal(`<h3>${ticker}</h3>
+    <label>Notes</label>
+    <textarea id="eq-note" style="min-height:80px">${eq.note||''}</textarea>
+    <div class="modal-actions"><button id="eq-cancel">Cancel</button><button class="primary" id="eq-save">Save</button></div>`);
+  $('eq-cancel').onclick=closeModal;
+  $('eq-save').onclick=()=>{
+    allEquities[ticker]={...allEquities[ticker]||{ticker},note:$('eq-note').value.trim()};
+    saveEquities(); closeModal(); showToast(ticker+' notes saved'); renderBusinessesHub();
+  };
+}
+
+/* --- SCHOOL --- */
+function renderSchool(){
+  const el=$('main-content');
+  el.innerHTML=`<div class="section-title">School Tracker
+    <button class="submit green-btn" id="add-course-btn" style="width:auto;margin:0;padding:8px 14px"><i class="ti ti-plus"></i> Add course</button>
+  </div>
+  <div id="courses-view"></div>`;
+  $('add-course-btn').onclick=()=>{
+    openModal(`<h3>Add course</h3>
+      <label>Course name</label><input id="cn-name" placeholder="e.g. COMM 172 Managerial Economics">
+      <label>Target grade</label><input id="cn-grade" placeholder="e.g. A+">
+      <div class="modal-actions"><button id="cn-cancel">Cancel</button><button class="primary" id="cn-save">Add</button></div>`);
+    $('cn-cancel').onclick=closeModal;
+    $('cn-save').onclick=()=>{
+      const name=$('cn-name').value.trim(); if(!name) return;
+      allCourses.push({id:'c'+Date.now(),name,targetGrade:$('cn-grade').value.trim(),assignments:[]});
+      saveCourses(); closeModal(); renderSchool();
+    };
+  };
+  const view=$('courses-view');
+  if(allCourses.length===0){view.innerHTML=`<div class="log-empty"><i class="ti ti-school"></i>No courses added yet.</div>`;return}
+  allCourses.forEach((course,ci)=>{
+    const card=document.createElement('div'); card.className='course-card';
+    const done=course.assignments.filter(a=>a.done).length;
+    card.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="course-name">${course.name}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          ${course.targetGrade?`<span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent)">Target: ${course.targetGrade}</span>`:''}
+          <button class="icon-btn danger" data-del-course="${ci}"><i class="ti ti-x"></i></button>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:8px">${done}/${course.assignments.length} assignments done</div>
+      <div id="asgn-list-${ci}"></div>
+      <div style="display:flex;gap:7px;margin-top:10px">
+        <input id="asgn-name-${ci}" placeholder="Assignment name" style="flex:1">
+        <input id="asgn-due-${ci}" type="date" style="width:140px">
+        <button class="task-add-btn" data-add-asgn="${ci}">Add</button>
+      </div>`;
+    // assignments
+    const asgnList=card.querySelector(`#asgn-list-${ci}`);
+    course.assignments.forEach((a,ai)=>{
+      const due=a.due?daysUntil(a.due):null;
+      const dueClass=due!==null?(due<0?'overdue':due<=3?'soon':''):'';
+      const row=document.createElement('div'); row.className='assignment-row';
+      row.innerHTML=`
+        <button class="task-check ${a.done?'done':''}" data-ci="${ci}" data-ai="${ai}">${a.done?'<i class="ti ti-check"></i>':''}</button>
+        <span class="${a.done?'task-text done':''}">${a.name}</span>
+        ${a.due?`<span class="assignment-due ${dueClass}">${due===0?'today':due<0?Math.abs(due)+'d overdue':due+'d'}</span>`:''}
+        <button class="icon-btn danger" data-del-asgn="${ai}" data-ci2="${ci}"><i class="ti ti-x"></i></button>`;
+      row.querySelector('[data-ci]').onclick=()=>{
+        allCourses[ci].assignments[ai].done=!allCourses[ci].assignments[ai].done;
+        saveCourses(); renderSchool();
+      };
+      row.querySelector('[data-del-asgn]').onclick=()=>{
+        allCourses[ci].assignments.splice(ai,1); saveCourses(); renderSchool();
+      };
+      asgnList.appendChild(row);
+    });
+    card.querySelector(`[data-add-asgn]`).onclick=()=>{
+      const name=card.querySelector(`#asgn-name-${ci}`).value.trim();
+      const due=card.querySelector(`#asgn-due-${ci}`).value;
+      if(!name) return;
+      allCourses[ci].assignments.push({name,due,done:false}); saveCourses(); renderSchool();
+    };
+    card.querySelector(`[data-del-course]`).onclick=()=>{allCourses.splice(ci,1);saveCourses();renderSchool()};
+    view.appendChild(card);
+  });
+}
+
+/* --- WEEKLY REVIEW --- */
+/* --- WEEKLY REVIEW --- */
+function getWeekSuccessfulDays(){
+  // Sun=0 to Sat=6 week
+  const now=new Date();
+  const dayOfWeek=now.getDay(); // 0=Sun
+  const weekDays=[];
+  for(let i=0;i<7;i++){
+    const d=new Date(now);
+    d.setDate(now.getDate()-dayOfWeek+i);
+    weekDays.push(d.toISOString().slice(0,10));
+  }
+  const today=todayStr();
+  let successful=0;
+  const total=allHabits.length;
+  if(total===0) return {successful:0,total:0,days:weekDays};
+  weekDays.forEach(dateStr=>{
+    if(dateStr>today) return; // future days don't count
+    const allDone=allHabits.every(h=>!!h.log[dateStr]);
+    if(allDone) successful++;
+  });
+  return {successful,total,days:weekDays,daysElapsed:weekDays.filter(d=>d<=today).length};
+}
+
+function sleepColor(h){
+  if(h===null||h===0) return '';
+  if(h>=7.5) return 'var(--green)';
+  if(h>=7)   return 'var(--amber)';
+  if(h>=6)   return '#F97316';
+  return 'var(--red)';
+}
+
+function makeSelect(id, options, allowOther){
+  return`<select id="${id}" style="width:100%">
+    <option value="">Select...</option>
+    ${options.map(o=>`<option value="${o}">${o}</option>`).join('')}
+    ${allowOther?`<option value="__other__">Other (write below)...</option>`:''}
+  </select>
+  ${allowOther?`<textarea id="${id}-other" placeholder="Write your own..." style="display:none;margin-top:8px;min-height:52px"></textarea>`:''}`
+}
+
+function renderWeeklyReview(){
+  const el=$('main-content');
+  const week=getWeekSuccessfulDays();
+  const missing=week.daysElapsed-week.successful;
+  const successColor=missing===0&&week.daysElapsed>0?'var(--green)':missing===1?'var(--amber)':missing===2?'#F97316':'var(--red)';
+  el.innerHTML=`
+  <div class="section-title">Weekly Review</div>
+  <style>
+    .rv-block{margin-bottom:20px}
+    .rv-block label{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
+    .rv-block .rv-sub{font-size:12px;color:var(--text-dim);margin-bottom:6px}
+    .score-chip{background:var(--bg-input);border:1px solid var(--line-bright);color:var(--text-dim);
+      padding:7px;min-width:40px;border-radius:8px;cursor:pointer;font-size:14px;font-family:'Space Grotesk',sans-serif;font-weight:600;text-align:center}
+    .score-chip:hover{border-color:var(--accent);color:var(--text)}
+    .score-chip.selected{background:var(--accent);border-color:var(--accent);color:#1a0d04}
+  </style>
+  <div class="domain-grid">
+    <div class="panel">
+      <h2><i class="ti ti-writing"></i>This week's review</h2>
+
+      <!-- AUTO: successful days -->
+      <div style="background:var(--bg-input);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:20px">
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-faint);margin-bottom:6px;font-weight:500">This week — auto tracked</div>
+        <div style="display:flex;align-items:baseline;gap:8px">
+          <span style="font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:${successColor}">${week.successful}</span>
+          <span style="font-size:14px;color:var(--text-dim)">of ${week.daysElapsed} days fully completed</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-faint);margin-top:4px">All ${week.total} habit${week.total!==1?'s':''} done = successful day · Sun → Sat week</div>
+        <div style="display:flex;gap:5px;margin-top:10px">
+          ${week.days.map((d,i)=>{
+            const isPast=d<=todayStr();
+            const isSuccess=isPast&&allHabits.length>0&&allHabits.every(h=>!!h.log[d]);
+            const isFuture=d>todayStr();
+            const dayLetter=['S','M','T','W','T','F','S'][i];
+            return`<div style="flex:1;text-align:center">
+              <div style="font-size:10px;color:var(--text-faint);margin-bottom:4px">${dayLetter}</div>
+              <div style="height:28px;border-radius:6px;background:${isFuture?'var(--bg-input)':isSuccess?'var(--green)':'var(--red)'};
+                border:1px solid ${isFuture?'var(--line)':isSuccess?'var(--green)':'var(--red)'};opacity:${isFuture?.3:1}"></div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- BIGGEST WIN -->
+      <div class="rv-block">
+        <label>Biggest win this week</label>
+        <div class="rv-sub">Select one or write your own</div>
+        ${makeSelect('rv-win',['Hit all habits','Crushed a workout','Networking progress','Strong school week','Business progress','Great sleep consistency','Financial goal moved'],true)}
+      </div>
+
+      <!-- BIGGEST MISS -->
+      <div class="rv-block">
+        <label>Biggest miss or failure</label>
+        <div class="rv-sub">Be honest with yourself</div>
+        ${makeSelect('rv-miss',['Missed gym sessions','Poor sleep','Off-plan eating','Not enough outreach','Behind on school work','Low energy week','No business work'],true)}
+      </div>
+
+      <!-- WHAT I'D DO DIFFERENTLY -->
+      <div class="rv-block">
+        <label>What I'd do differently</label>
+        ${makeSelect('rv-diff',['Sleep earlier','More outreach','Better meal prep','More study time','Less phone time','Stick to the plan','Plan the week ahead'],true)}
+      </div>
+
+      <!-- GOALS CHECK-IN -->
+      <div class="rv-block">
+        <label>Goals check-in</label>
+        ${makeSelect('rv-goals',['All goals moved forward','Most goals on track','Some goals stalled','Need to reset priorities','New goal added'],true)}
+      </div>
+
+      <!-- FOCUS NEXT WEEK -->
+      <div class="rv-block">
+        <label>Focus & intention for next week</label>
+        ${makeSelect('rv-focus',['Networking outreach','School assignments','Gym consistency','Business work','Sleep routine','Financial review','Habit streak'],true)}
+      </div>
+
+      <!-- SCORE -->
+      <div class="rv-block">
+        <label>Overall week score</label>
+        <div class="rv-sub">Tap a number</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px" id="rv-score-chips">
+          ${[1,2,3,4,5,6,7,8,9,10].map(n=>`<button type="button" class="score-chip" data-score="${n}">${n}</button>`).join('')}
+        </div>
+        <input type="hidden" id="rv-score-val" value="">
+      </div>
+
+      <button class="submit" id="save-review-btn" style="margin-top:8px"><i class="ti ti-device-floppy"></i> Save review</button>
+    </div>
+    <div class="panel">
+      <h2><i class="ti ti-history"></i>Past reviews</h2>
+      <div id="review-history"></div>
+    </div>
+  </div>`;
+
+  // wire selects — show other textarea when "Other" is picked
+  ['rv-win','rv-miss','rv-diff','rv-goals','rv-focus'].forEach(id=>{
+    const sel=$(id); if(!sel) return;
+    sel.onchange=()=>{
+      const otherTA=$(id+'-other');
+      if(otherTA) otherTA.style.display=sel.value==='__other__'?'block':'none';
+    };
+  });
+
+  // wire score chips
+  const scoreChips=$('rv-score-chips');
+  if(scoreChips){
+    scoreChips.querySelectorAll('.score-chip').forEach(chip=>{
+      chip.onclick=()=>{
+        scoreChips.querySelectorAll('.score-chip').forEach(c=>c.classList.remove('selected'));
+        chip.classList.add('selected');
+        $('rv-score-val').value=chip.dataset.score;
+      };
+    });
+  }
+
+  function getSelectValue(id){
+    const sel=$(id); if(!sel) return '';
+    if(sel.value==='__other__') return ($(id+'-other')||{}).value||'';
+    return sel.value;
+  }
+
+  $('save-review-btn').onclick=()=>{
+    const score=$('rv-score-val').value;
+    const win=getSelectValue('rv-win');
+    if(!win&&!score){showToast('Pick at least a win or a score','ti-alert-triangle');return}
+    allReviews.unshift({
+      date:todayStr(),
+      weekSuccessful:week.successful,
+      weekDaysElapsed:week.daysElapsed,
+      totalHabits:week.total,
+      win,
+      miss:getSelectValue('rv-miss'),
+      diff:getSelectValue('rv-diff'),
+      goals:getSelectValue('rv-goals'),
+      focus:getSelectValue('rv-focus'),
+      score
+    });
+    saveReviews(); showToast('Review saved'); renderWeeklyReview();
+  };
+
+  const hist=$('review-history');
+  if(allReviews.length===0){
+    hist.innerHTML=`<div style="color:var(--text-faint);font-size:13px">No reviews yet. Complete your first one on the left.</div>`;
+    return;
+  }
+  allReviews.slice(0,10).forEach((r,i)=>{
+    const div=document.createElement('div'); div.className='review-history-item';
+    const delBtn=document.createElement('button');
+    delBtn.style.cssText='background:none;border:1px solid var(--red);border-radius:6px;color:var(--red);cursor:pointer;padding:3px 8px;font-size:11px;font-family:Inter,sans-serif';
+    delBtn.textContent='Remove';
+    delBtn.onclick=()=>{allReviews.splice(i,1);saveReviews();renderWeeklyReview()};
+    div.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="review-history-date">${fmtDate(r.date)}</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          ${r.score?`<span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent)">${r.score}/10</span>`:''}
+        </div>
+      </div>
+      ${r.weekSuccessful!=null?`<div style="font-size:12px;color:var(--green);margin-top:4px">${r.weekSuccessful}/${r.weekDaysElapsed} successful days</div>`:''}
+      ${r.win?`<div style="font-size:13px;color:var(--text);margin-top:4px">✓ ${r.win}</div>`:''}
+      ${r.focus?`<div style="font-size:12px;color:var(--text-dim);margin-top:3px">Next: ${r.focus}</div>`:''}`;
+    div.appendChild(delBtn);
+    hist.appendChild(div);
+  });
+}
+
+/* --- DOMAIN CHECK-IN (existing) --- */
+const MUSCLE_GROUPS_MAP={'Chest & back':['chest','back'],'Shoulders & arms':['shoulders','biceps','triceps'],'Push':['chest','shoulders','triceps'],'Pull':['back','biceps'],'Legs':['quads','hamstrings','calves'],'Upper':['chest','back','shoulders','biceps','triceps'],'Lower':['quads','hamstrings','calves','core'],'Full body':['chest','back','shoulders','biceps','triceps','quads','hamstrings','calves','core'],'Cardio':['core'],'Rest day':[]};
+function recencyColor(d){if(d===null) return 'var(--line-bright)';if(d<=1) return '#D9763B';if(d<=2) return '#E08F4F';if(d<=4) return '#F4B740';if(d<=7) return '#A9CC6B';return '#4ADE80'}
+function recencyLabel(d){if(d===null) return 'not logged';if(d===0) return 'today';if(d===1) return '1 day ago';return d+' days ago'}
+function computeMuscleRecency(){
+  const entries=allEntries.gym||[]; const lastTrained={};
+  MUSCLE_LIST.forEach(m=>lastTrained[m]=null);
+  entries.forEach(e=>{if(!e.timestamp) return;const g=MUSCLE_GROUPS_MAP[e.session]||[];g.forEach(m=>{if(lastTrained[m]===null||e.timestamp>lastTrained[m]) lastTrained[m]=e.timestamp})});
+  const daysAgo={};
+  MUSCLE_LIST.forEach(m=>{daysAgo[m]=lastTrained[m]===null?null:Math.floor((Date.now()-lastTrained[m])/86400000)});
+  return daysAgo;
+}
+function frontBodySvg(da){
+  const c=m=>recencyColor(da[m]);
+  return`<svg width="130" height="270" viewBox="0 0 150 300" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="75" cy="24" r="18" fill="var(--bg-input)" stroke="var(--line-bright)" stroke-width="1.5"/>
+    <rect x="64" y="40" width="22" height="12" fill="var(--bg-input)" stroke="var(--line-bright)" stroke-width="1.5"/>
+    <path d="M42 54 Q75 46 108 54 L116 78 L100 86 L100 72 Q75 64 50 72 L50 86 L34 78 Z" fill="${c('shoulders')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M50 72 Q75 64 100 72 L98 110 Q75 120 52 110 Z" fill="${c('chest')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M52 112 Q75 121 98 112 L94 142 Q75 148 56 142 Z" fill="${c('core')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M34 78 L28 130 L40 134 L48 84 Z" fill="${c('triceps')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M116 78 L122 130 L110 134 L102 84 Z" fill="${c('biceps')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M56 144 Q75 150 94 144 L92 168 Q75 174 58 168 Z" fill="${c('core')}" opacity=".8" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M58 170 L57 192 L72 196 L73 172 Z" fill="${c('quads')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M92 170 L93 192 L78 196 L77 172 Z" fill="${c('quads')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M58 198 L60 248 L72 250 L72 198 Z" fill="${c('quads')}" opacity=".85" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M92 198 L90 248 L78 250 L78 198 Z" fill="${c('quads')}" opacity=".85" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M60 250 L62 282 L70 282 L72 252 Z" fill="${c('calves')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M90 250 L88 282 L80 282 L78 252 Z" fill="${c('calves')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+  </svg>`}
+function backBodySvg(da){
+  const c=m=>recencyColor(da[m]);
+  return`<svg width="130" height="270" viewBox="0 0 150 300" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="75" cy="24" r="18" fill="var(--bg-input)" stroke="var(--line-bright)" stroke-width="1.5"/>
+    <rect x="64" y="40" width="22" height="12" fill="var(--bg-input)" stroke="var(--line-bright)" stroke-width="1.5"/>
+    <path d="M42 54 Q75 46 108 54 L116 78 L100 86 L100 72 Q75 64 50 72 L50 86 L34 78 Z" fill="${c('shoulders')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M50 72 Q75 64 100 72 L96 140 Q75 150 54 140 Z" fill="${c('back')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M54 142 Q75 151 96 142 L92 168 Q75 174 58 168 Z" fill="${c('back')}" opacity=".7" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M34 78 L28 130 L40 134 L48 84 Z" fill="${c('biceps')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M116 78 L122 130 L110 134 L102 84 Z" fill="${c('triceps')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M58 170 L57 196 L72 198 L73 172 Z" fill="${c('hamstrings')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M92 170 L93 196 L78 198 L77 172 Z" fill="${c('hamstrings')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M58 200 L60 248 L72 250 L72 200 Z" fill="${c('hamstrings')}" opacity=".85" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M92 200 L90 248 L78 250 L78 200 Z" fill="${c('hamstrings')}" opacity=".85" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M60 250 L62 282 L70 282 L72 252 Z" fill="${c('calves')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+    <path d="M90 250 L88 282 L80 282 L78 252 Z" fill="${c('calves')}" stroke="var(--line-bright)" stroke-width="1.2"/>
+  </svg>`}
+
+function renderBodyMap(){
+  const da=computeMuscleRecency();
+  const sorted=MUSCLE_LIST.slice().sort((a,b)=>{const x=da[a],y=da[b];if(x===null&&y===null) return 0;if(x===null) return 1;if(y===null) return -1;return x-y});
+  return`<div class="panel body-map-section" style="margin-bottom:18px">
+    <h2><i class="ti ti-accessible"></i>Muscle recovery map</h2>
+    <div class="body-map-legend">
+      <span><span class="legend-dot" style="background:#D9763B"></span>Just trained</span>
+      <span><span class="legend-dot" style="background:#4ADE80"></span>Rested</span>
+      <span><span class="legend-dot" style="background:var(--line-bright)"></span>Not logged</span>
+    </div>
+    <div class="body-map-grid">
+      <div class="body-figure-wrap">${frontBodySvg(da)}<div class="body-figure-label">Front</div></div>
+      <div class="body-figure-wrap">${backBodySvg(da)}<div class="body-figure-label">Back</div></div>
+    </div>
+    <div class="muscle-status-list">
+      ${sorted.map(m=>`<div class="muscle-status-row">
+        <div class="muscle-status-dot" style="background:${recencyColor(da[m])}"></div>
+        <div class="muscle-status-name">${MUSCLE_LABELS[m]}</div>
+        <div class="muscle-status-time">${recencyLabel(da[m])}</div>
+      </div>`).join('')}
+    </div>
+  </div>`}
+
+function renderPhotoSection(){
+  const entries=(allEntries.gym||[]).filter(e=>e.photo);
+  return`<div class="panel" id="photo-panel">
+    <h2><i class="ti ti-camera"></i>Progress photos</h2>
+    <label>Monthly progress photo</label>
+    <input type="file" id="photo-input" accept="image/*">
+    <button class="submit secondary" id="add-photo-btn"><i class="ti ti-plus"></i> Save photo to today's log</button>
+    <div class="photo-gallery">
+      ${entries.length===0?'<p style="font-size:12px;color:var(--text-faint);grid-column:1/-1">No photos yet.</p>':
+        entries.slice().reverse().map(e=>`<div class="photo-thumb"><img src="${e.photo}" alt="Progress photo"><div class="photo-date">${fmtDate(e.date)}</div></div>`).join('')}
+    </div>
+  </div>`}
+
+const SPEND_CAT_KEYS=Object.keys(SPEND_CATEGORIES);
+function categorize(desc){const d=desc.toLowerCase();for(const [cat,kw] of Object.entries(SPEND_CATEGORIES)) if(kw.some(k=>d.includes(k))) return cat;return 'Other'}
+function parseStatement(text){
+  const lines=text.split('\n').map(l=>l.trim()).filter(Boolean);
+  const txns=[]; const rx=/-?\$?\s?-?\d{1,3}(?:[,\d{3}]*)(?:\.\d{2})/g;
+  lines.forEach(line=>{
+    const amounts=line.match(rx); if(!amounts) return;
+    const amtStr=amounts[amounts.length-1].replace(/[\$,\s]/g,'');
+    const amt=parseFloat(amtStr); if(isNaN(amt)) return;
+    const desc=line.replace(amounts[amounts.length-1],'').trim(); if(!desc) return;
+    txns.push({desc,amount:amt,category:categorize(desc)});
+  });
+  return txns;
+}
+
+function renderDomain(){
+  const domainKey=activeView.replace('domain:','');
+  const domain=DOMAINS[domainKey]; if(!domain) return;
+  const el=$('main-content');
+  const isGym=domainKey==='gym'; const isFinance=domainKey==='finances';
+  let leftCol='';
+  if(isFinance){
+    leftCol=`<div class="panel" style="margin-bottom:18px">
+      <h2><i class="ti ti-file-text"></i>Paste statement</h2>
+      <label>Paste transaction lines from your bank or Wealthsimple</label>
+      <textarea id="statement-input" placeholder="Jun 12  STARBUCKS #4421        -6.75&#10;Jun 13  PAYROLL DEPOSIT        850.00" style="min-height:80px"></textarea>
+      <button class="submit secondary" id="parse-stmt-btn"><i class="ti ti-scan"></i> Parse statement</button>
+      <div id="stmt-results"></div>
+    </div>`;
+  }
+  el.innerHTML=`<div class="domain-grid">
+    <div>
+      ${leftCol}
+      <div class="panel" id="form-panel">
+        <h2><i class="ti ${domain.icon}"></i>Log a check-in</h2>
+        <button class="submit voice-all" id="voice-all-btn"><i class="ti ti-microphone"></i> Speak full entry</button>
+        ${domain.fields.map(f=>{
+          if(f.type==='select') return `<label>${f.label}</label><select id="f-${f.key}"><option value="">Select...</option>${f.options.map(o=>`<option>${o}</option>`).join('')}</select>`;
+          if(f.voice){
+            const tag=f.type==='textarea'?`<textarea id="f-${f.key}" placeholder="${f.placeholder||''}"></textarea>`:`<input id="f-${f.key}" type="${f.type}" placeholder="${f.placeholder||''}">`;
+            return`<label>${f.label}</label><div class="field-with-mic">${tag}<button class="mic-btn" data-field="f-${f.key}"><i class="ti ti-microphone"></i></button></div>`;
+          }
+          return`<label>${f.label}</label><input id="f-${f.key}" type="${f.type}" placeholder="${f.placeholder||''}">`;
+        }).join('')}
+        <button class="submit" id="submit-entry-btn"><i class="ti ti-plus"></i> Add entry</button>
+      </div>
+    </div>
+    <div>
+      ${isGym?renderBodyMap():''}
+      ${isGym?renderPhotoSection():''}
+      <div class="panel" ${isGym?'style="margin-top:18px"':''}>
+        <div class="log-header">
+          <h2><i class="ti ti-list"></i>${domain.label} log</h2>
+          <span class="log-count" id="log-count"></span>
+        </div>
+        <div id="log-list"></div>
+      </div>
+    </div>
+  </div>`;
+  // bind form
+  $('submit-entry-btn').onclick=()=>{
+    const entry={date:todayStr(),timestamp:Date.now()};
+    let hasVal=false;
+    domain.fields.forEach(f=>{const el2=$(f.key?'f-'+f.key:null);if(!el2) return;const v=el2.value.trim();if(v) hasVal=true;entry[f.key]=v});
+    if(!hasVal){showToast('Add at least one value','ti-alert-triangle');return}
+    if(!allEntries[domainKey]) allEntries[domainKey]=[];
+    allEntries[domainKey].push(entry); saveEntries(domainKey);
+    showToast(domain.label+' entry added'); renderAll();
+  };
+  $('voice-all-btn').onclick=e=>{const nf=domain.fields.find(f=>f.key==='note');if(!nf) return;startVoice('f-note',e.currentTarget)};
+  el.querySelectorAll('[data-field]').forEach(btn=>btn.onclick=()=>startVoice(btn.dataset.field,btn));
+  if(isFinance){
+    $('parse-stmt-btn').onclick=()=>{
+      const text=$('statement-input').value; if(!text.trim()) return;
+      const txns=parseStatement(text);
+      if(txns.length===0){$('stmt-results').innerHTML='<p style="font-size:13px;color:var(--text-faint);margin-top:10px">No amounts found.</p>';return}
+      const income=txns.filter(t=>t.amount>0).reduce((s,t)=>s+t.amount,0);
+      const spending=txns.filter(t=>t.amount<0).reduce((s,t)=>s+Math.abs(t.amount),0);
+      const bycat={};txns.filter(t=>t.amount<0).forEach(t=>{bycat[t.category]=(bycat[t.category]||0)+Math.abs(t.amount)});
+      $('stmt-results').innerHTML=`
+        <div class="statement-summary">
+          <div class="metric"><div class="m-label">Transactions</div><div class="m-value">${txns.length}</div></div>
+          <div class="metric"><div class="m-label">Income</div><div class="m-value" style="color:var(--green)">${fmtMoney(income)}</div></div>
+          <div class="metric"><div class="m-label">Spending</div><div class="m-value" style="color:var(--red)">${fmtMoney(spending)}</div></div>
+        </div>
+        <div style="margin-top:12px">${Object.entries(bycat).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`<div class="cat-row"><span>${c}</span><span class="cat-amt">${fmtMoney(v)}</span></div>`).join('')}</div>
+        <button class="submit secondary" id="log-stmt-btn"><i class="ti ti-plus"></i> Log as finance entry</button>`;
+      $('log-stmt-btn').onclick=()=>{
+        const top=Object.entries(bycat).sort((a,b)=>b[1]-a[1])[0];
+        allEntries.finances.push({date:todayStr(),timestamp:Date.now(),balance:'',change:(income-spending).toFixed(2),category:'Spending review',
+          note:`${txns.length} transactions. Income ${fmtMoney(income)}, spending ${fmtMoney(spending)}. Top: ${top?top[0]+' ('+fmtMoney(top[1])+')':'n/a'}`});
+        saveEntries('finances'); showToast('Statement logged'); renderAll();
+      };
+    };
+  }
+  if(isGym){
+    const pp=$('add-photo-btn');
+    if(pp) pp.onclick=async()=>{
+      const input=$('photo-input'); const file=input.files[0];
+      if(!file){showToast('Choose a photo first','ti-alert-triangle');return}
+      const reader=new FileReader();
+      reader.onload=()=>{
+        allEntries.gym.push({date:todayStr(),timestamp:Date.now(),session:'',lift:'',weight:'',note:'Progress photo',photo:reader.result});
+        saveEntries('gym'); showToast('Photo saved'); renderAll();
+      };
+      reader.readAsDataURL(file);
+    };
+  }
+  renderLogList(domainKey,domain);
+}
+
+function renderLogList(domainKey,domain){
+  const entries=(allEntries[domainKey]||[]).slice().reverse();
+  if($('log-count')) $('log-count').textContent=entries.length+' entries';
+  const el=$('log-list'); if(!el) return;
+  if(entries.length===0){el.innerHTML=`<div class="log-empty"><i class="ti ${domain.icon}"></i>No entries yet. Log your first check-in.</div>`;return}
+  el.innerHTML='';
+  entries.forEach(entry=>{
+    const row=document.createElement('div'); row.className='log-entry';
+    const statsHtml=domain.statKeys.map(k=>{
+      const f=domain.fields.find(f=>f.key===k); const v=entry[k]; if(!v) return '';
+      return`<span>${f.label.split('(')[0].trim()}: <b>${v}</b></span>`;
+    }).filter(Boolean).join('');
+    row.innerHTML=`
+      <div class="log-entry-top">
+        <div class="log-stats">${statsHtml}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="log-date">${fmtDate(entry.date)}</span>
+          <button class="icon-btn danger" data-del-entry="${entry.timestamp}"><i class="ti ti-x"></i></button>
+        </div>
+      </div>
+      ${entry.note?`<div class="log-note">${entry.note.replace(/</g,'&lt;')}</div>`:''}
+      ${entry.photo?`<img class="log-photo" src="${entry.photo}" alt="Progress photo">`:''}`;
+    row.querySelector('[data-del-entry]').onclick=()=>{
+      allEntries[domainKey]=allEntries[domainKey].filter(e=>e.timestamp!==entry.timestamp);
+      saveEntries(domainKey); renderAll();
+    };
+    el.appendChild(row);
+  });
+}
+
+/* ============================================================
+   MASTER RENDER
+   ============================================================ */
+function renderAll(){
+  renderHeader();
+  renderBriefing();
+  renderBackupBanner();
+  renderStatsBar();
+  renderNav();
+  if(activeView==='home') renderHome();
+  else if(activeView==='goals') renderGoals();
+  else if(activeView==='tasks') renderTasks();
+  else if(activeView==='habits') renderHabits();
+  else if(activeView==='networth') renderNetWorth();
+  else if(activeView==='businesses-hub') renderBusinessesHub();
+  else if(activeView==='pipeline') renderPipeline();
+  else if(activeView==='school-track') renderSchool();
+  else if(activeView==='review') renderWeeklyReview();
+  else if(activeView.startsWith('domain:')) renderDomain();
+}
+
+/* ---------- EVENTS ---------- */
+$('export-btn').addEventListener('click',exportBackup);
+$('import-btn').addEventListener('click',triggerImport);
+$('banner-export-btn').addEventListener('click',exportBackup);
+$('import-file-input').addEventListener('change',e=>{handleImportFile(e.target.files[0]);e.target.value=''});
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+
+loadAll();
+renderAll();
+</script>
+</body>
+</html>
